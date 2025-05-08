@@ -4,8 +4,112 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mohamed Saif | Portfolio</title>
+
+    <style>
+        /* Reset and basic settings */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+        
+        body {
+            background: url('F:\New folder\saif_portfolio_\images\space_img.jpg') no-repeat center center/cover;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            height: 100vh;
+            color: white;
+        }
+        
+        /* Header/Navbar styling */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 40px;
+            background-color: rgba(0, 0, 0, 0.6);
+            position: relative;
+        }
+        
+        .logo {
+            font-weight: bold;
+            font-size: 20px;
+            color: #fff;
+        }
+        
+        .navbar a {
+            margin-left: 20px;
+            color: white;
+            text-decoration: none;
+            font-size: 14px;
+            position: relative;
+        }
+        
+        .menu-icon {
+            display: none;
+        }
+        
+        /* Main animated heading */
+        .main-content {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: calc(100vh - 80px);
+        }
+        
+        .space-text {
+            font-size: 64px;
+            font-weight: bold;
+            text-transform: uppercase;
+            animation: glow 8s infinite alternate ease-in-out;
+            color: #fff;
+            text-shadow:
+                0 0 10px #ff00ff,
+                0 0 20px #ff00ff,
+                0 0 30px #00ffff,
+                0 0 40px #00ffff,
+                0 0 50px #ff00ff;
+        }
+        
+        /* Space glow animation */
+        @keyframes glow {
+            0% {
+                text-shadow:
+                    0 0 10px #ff00ff,
+                    0 0 20px #ff00ff,
+                    0 0 30px #00ffff,
+                    0 0 40px #00ffff,
+                    0 0 50px #ff00ff;
+                transform: scale(1);
+            }
+            100% {
+                text-shadow:
+                    0 0 20px #00ffff,
+                    0 0 30px #ff00ff,
+                    0 0 40px #00ffff,
+                    0 0 50px #ff00ff,
+                    0 0 60px #00ffff;
+                transform: scale(1.05);
+            }
+        }
+    </style>
 </head>
+
 <body>
-    
+  <header class="header">
+    <div class="logo">Portfolio</div>
+    <nav class="navbar">
+      <a href="#">Home</a>
+      <a href="#">About Me</a>
+      <a href="#">Contact</a>
+      <div class="menu-icon">&#9776;</div>
+    </nav>
+  </header>
+
+  <main class="main-content">
+    <h1 class="space-text">MOHAMED SAIF !</h1>
+  </main>
 </body>
 </html>
