@@ -57,6 +57,25 @@ a {
   letter-spacing: 1px;
 }
 
+.logo-container {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.logo-image {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--primary);
+  transition: transform 0.3s ease;
+}
+
+.logo-image:hover {
+  transform: scale(1.1);
+}
+
 .desktop-links {
   display: flex;
 }
@@ -660,6 +679,12 @@ a {
   color: rgba(255, 255, 255, 0.1);
   overflow: hidden;
   background-color: #222;
+  gap: 1rem;
+}
+
+.poster-item {
+  width: auto !important;
+  padding: 0 1.5rem !important;
 }
 
 .poster-card img {
