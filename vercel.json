@@ -1,0 +1,9 @@
+{
+  "framework": null,
+  "buildCommand": null,
+  "outputDirectory": ".",
+  "routes": [
+    { "src": "/Assest/(.*)", "dest": "/Assest/$1" },
+    { "src": "/(.*)", "dest": "/$1" }
+  ]
+}
