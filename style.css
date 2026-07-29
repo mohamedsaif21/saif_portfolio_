@@ -437,7 +437,7 @@ a {
   display: flex;
   gap: 2rem;
   width: max-content;
-  animation: scrollCertificates 20s linear infinite;
+  animation: scrollCertificates 60s linear infinite;
 }
 
 @keyframes scrollCertificates {
@@ -455,19 +455,26 @@ a {
 
 .certificate-item {
   flex-shrink: 0;
-  width: 320px;
-  height: 240px;
+  width: 340px;
+  height: 260px;
   border-radius: 12px;
   overflow: hidden;
   background: var(--surface);
   border: 1px solid #333;
+  transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+.certificate-item:hover {
+  transform: scale(1.05);
+  border-color: var(--primary);
 }
 
 .certificate-item img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
   display: block;
+  padding: 8px;
 }
 
 /* TECH STACK */
@@ -872,13 +879,17 @@ a {
 
   .certificates-slider {
     gap: 1rem;
-    animation-duration: 15s;
+    animation-duration: 40s;
   }
 
   .certificate-item {
-    width: 260px;
-    height: 180px;
+    width: 280px;
+    height: 200px;
     border-radius: 8px;
+  }
+
+  .certificate-item img {
+    padding: 4px;
   }
 
   .tech-grid {
