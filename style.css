@@ -531,14 +531,25 @@ a {
 }
 
 .project-card {
+  position: relative;
   display: flex;
-  border-top: 1px solid #333;
-  padding: 4rem 0;
-  transition: opacity 0.3s;
+  justify-content: space-between;
+  align-items: center;
+  gap: 3rem;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  background: rgba(255, 255, 255, 0.01);
+  border-radius: 20px;
+  padding: 3rem;
+  margin-bottom: 2.5rem;
+  overflow: hidden;
+  transition: border-color 0.4s, transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.4s;
+  backdrop-filter: blur(12px);
 }
 
 .project-card:hover {
-  opacity: 0.8;
+  border-color: rgba(196, 255, 0, 0.3);
+  transform: translateY(-8px) scale(1.005);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6), 0 0 30px rgba(196, 255, 0, 0.04);
 }
 
 .project-info {
@@ -1012,5 +1023,148 @@ a {
 
   .timeline-item:nth-child(even) .timeline-content {
     order: 0;
+  }
+}
+
+/* ==========================================================================
+   PORTFOLIO PREMIUM ENHANCEMENTS (GSAP, LERPMOUSE, GLOWCARDS)
+   ========================================================================== */
+
+/* 1. Custom Liquid Cursor */
+.custom-cursor-dot {
+  width: 8px;
+  height: 8px;
+  background-color: var(--primary);
+  border-radius: 50%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  z-index: 10000;
+  transition: width 0.2s, height 0.2s, background-color 0.2s;
+}
+
+.custom-cursor-ring {
+  width: 36px;
+  height: 36px;
+  border: 1.5px solid var(--primary);
+  border-radius: 50%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  z-index: 9999;
+  mix-blend-mode: difference;
+  border-color: #fff;
+  transition: width 0.3s cubic-bezier(0.25, 1, 0.5, 1),
+              height 0.3s cubic-bezier(0.25, 1, 0.5, 1),
+              background-color 0.3s,
+              border-color 0.3s;
+}
+
+.custom-cursor-ring.hovered {
+  width: 60px;
+  height: 60px;
+  background-color: rgba(255, 255, 255, 0.15);
+  border-color: transparent;
+}
+
+@media (pointer: coarse) {
+  .custom-cursor-dot,
+  .custom-cursor-ring {
+    display: none !important;
+  }
+}
+
+/* 2. Premium Project Card Updates */
+.project-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(
+    800px circle at var(--mouse-x, 0px) var(--mouse-y, 0px),
+    rgba(196, 255, 0, 0.08),
+    transparent 45%
+  );
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+.project-card:hover::before {
+  opacity: 1;
+}
+
+.project-info, 
+.project-image {
+  position: relative;
+  z-index: 2;
+}
+
+/* 3. Text Reveal Styles */
+.reveal-text-char {
+  display: inline-block;
+  transform: translateY(105%);
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal-text-word {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: top;
+}
+
+/* 4. Experience timeline adjustments */
+.timeline-content {
+  transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), 
+              background 0.4s ease, 
+              border-color 0.4s,
+              box-shadow 0.4s ease;
+}
+
+.timeline-content:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-left-color: var(--primary);
+  transform: translateY(-5px) scale(1.01);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+}
+
+/* Lenis Scroll Tweaks */
+html.lenis {
+  height: auto;
+}
+
+.lenis-smooth {
+  scroll-behavior: initial;
+}
+
+.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis-scrolling iframe {
+  pointer-events: none;
+}
+
+/* Mobile responsive padding for timeline line & project card stack */
+@media (max-width: 768px) {
+  .project-card {
+    flex-direction: column-reverse !important;
+    gap: 1.5rem !important;
+    padding: 2rem !important;
+  }
+  
+  .timeline-item {
+    padding-left: 24px;
   }
 }
