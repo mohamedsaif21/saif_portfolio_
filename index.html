@@ -122,42 +122,54 @@
   <section id="certificates" class="certificates-section">
     <div class="content-wrapper">
       <center><h2>Certificates</h2></center>
-    </div>
-    <div class="certificates-track">
-      <div class="certificates-slider">
-        <div class="certificate-item">
-          <img src="./Assest/mycertificate/celonis.png" alt="Celonis Certificate">
+      
+      <div class="certificates-list">
+        <!-- Row 1 -->
+        <div class="certificate-row" data-image="./Assest/mycertificate/oracle.png">
+          <div class="cert-issuer">Oracle</div>
+          <div class="cert-title">Cloud Infrastructure Certified Associate</div>
+          <div class="cert-date">2024</div>
         </div>
-        <div class="certificate-item">
-          <img src="./Assest/mycertificate/Certificate.png" alt="Certificate">
+        <!-- Row 2 -->
+        <div class="certificate-row" data-image="./Assest/mycertificate/nasa.png">
+          <div class="cert-issuer">NASA Space Apps</div>
+          <div class="cert-title">Hackathon Winner & Participant</div>
+          <div class="cert-date">2025</div>
         </div>
-        <div class="certificate-item">
-          <img src="./Assest/mycertificate/hplife.png" alt="HP Life Certificate">
+        <!-- Row 3 -->
+        <div class="certificate-row" data-image="./Assest/mycertificate/celonis.png">
+          <div class="cert-issuer">Celonis</div>
+          <div class="cert-title">Process Mining Fundamentals</div>
+          <div class="cert-date">2024</div>
         </div>
-        <div class="certificate-item">
-          <img src="./Assest/mycertificate/nasa.png" alt="NASA Certificate">
+        <!-- Row 4 -->
+        <div class="certificate-row" data-image="./Assest/mycertificate/hplife.png">
+          <div class="cert-issuer">HP Life</div>
+          <div class="cert-title">Executive Entrepreneurship Certification</div>
+          <div class="cert-date">2024</div>
         </div>
-        <div class="certificate-item">
-          <img src="./Assest/mycertificate/oracle.png" alt="Oracle Certificate">
-        </div>
-        <div class="certificate-item">
-          <img src="./Assest/mycertificate/celonis.png" alt="Celonis Certificate">
-        </div>
-        <div class="certificate-item">
-          <img src="./Assest/mycertificate/Certificate.png" alt="Certificate">
-        </div>
-        <div class="certificate-item">
-          <img src="./Assest/mycertificate/hplife.png" alt="HP Life Certificate">
-        </div>
-        <div class="certificate-item">
-          <img src="./Assest/mycertificate/nasa.png" alt="NASA Certificate">
-        </div>
-        <div class="certificate-item">
-          <img src="./Assest/mycertificate/oracle.png" alt="Oracle Certificate">
+        <!-- Row 5 -->
+        <div class="certificate-row" data-image="./Assest/mycertificate/Certificate.png">
+          <div class="cert-issuer">App Innovation Tech</div>
+          <div class="cert-title">Full Stack MERN Web Development</div>
+          <div class="cert-date">2025</div>
         </div>
       </div>
     </div>
   </section>
+
+  <!-- Floating Certificate Preview (Desktop Only) -->
+  <div class="cert-floating-preview">
+    <img src="" alt="Preview">
+  </div>
+
+  <!-- Lightbox Modal for Certificate Zoom -->
+  <div class="lightbox-modal" aria-hidden="true" role="dialog">
+    <button class="lightbox-close" aria-label="Close lightbox">&times;</button>
+    <div class="lightbox-content">
+      <img src="" alt="Expanded Certificate">
+    </div>
+  </div>
 
   <!-- Noise Overlay -->
   <div class="noise"></div>
@@ -287,6 +299,7 @@
             </svg>
           </a>
           </div>
+           <div class="project-image"><img src="Assest/Resucraft AI.png" alt="Pro"></div>
         </div>
       </div>
     </div>

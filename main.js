@@ -206,7 +206,7 @@ function updateCursorRing() {
 updateCursorRing();
 
 // Custom cursor hover states
-const hoverables = document.querySelectorAll('a, button, .project-card, .certificate-item, .tech-item, .hamburger-btn');
+const hoverables = document.querySelectorAll('a, button, .project-card, .certificate-row, .tech-item, .hamburger-btn');
 hoverables.forEach(el => {
     el.addEventListener('mouseenter', () => {
         if (cursorRing) cursorRing.classList.add('hovered');
@@ -341,3 +341,73 @@ const scrollObserver = new IntersectionObserver((entries) => {
 
 const animateElements = document.querySelectorAll('.animate-on-scroll, .timeline, .timeline-item');
 animateElements.forEach(el => scrollObserver.observe(el));
+
+// CERTIFICATES INTERACTIVE LOGIC (Row Hover & Lightbox Modal)
+const certRows = document.querySelectorAll('.certificate-row');
+const certPreview = document.querySelector('.cert-floating-preview');
+const certPreviewImg = certPreview ? certPreview.querySelector('img') : null;
+const lightbox = document.querySelector('.lightbox-modal');
+const lightboxImg = lightbox ? lightbox.querySelector('.lightbox-content img') : null;
+const lightboxClose = lightbox ? lightbox.querySelector('.lightbox-close') : null;
+
+// Cursor hover image preview (Desktop only)
+if (window.innerWidth > 768 && certRows.length && certPreview && certPreviewImg) {
+    certRows.forEach(row => {
+        row.addEventListener('mouseenter', () => {
+            const imgSrc = row.getAttribute('data-image');
+            if (imgSrc) {
+                certPreviewImg.src = imgSrc;
+                certPreview.classList.add('active');
+            }
+        });
+
+        row.addEventListener('mouseleave', () => {
+            certPreview.classList.remove('active');
+        });
+
+        row.addEventListener('mousemove', (e) => {
+            const offset = 20; // Offset preview card from actual mouse pointer
+            certPreview.style.left = `${e.clientX + offset}px`;
+            certPreview.style.top = `${e.clientY + offset}px`;
+        });
+    });
+}
+
+// Lightbox Modal for click zoom (Both desktop and mobile)
+if (lightbox && lightboxImg && certRows.length) {
+    certRows.forEach(row => {
+        row.addEventListener('click', () => {
+            const imgSrc = row.getAttribute('data-image');
+            if (imgSrc) {
+                lightboxImg.src = imgSrc;
+                lightbox.classList.add('active');
+                lightbox.setAttribute('aria-hidden', 'false');
+                if (lenis) lenis.stop(); // Stop scroll while modal is active
+            }
+        });
+    });
+
+    const closeLightbox = () => {
+        lightbox.classList.remove('active');
+        lightbox.setAttribute('aria-hidden', 'true');
+        if (lenis) lenis.start(); // Resume scrolling
+    };
+
+    if (lightboxClose) {
+        lightboxClose.addEventListener('click', closeLightbox);
+    }
+
+    // Close on background overlay click
+    lightbox.addEventListener('click', (e) => {
+        if (e.target === lightbox) {
+            closeLightbox();
+        }
+    });
+
+    // Close on Esc key press
+    window.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && lightbox.classList.contains('active')) {
+            closeLightbox();
+        }
+    });
+}
