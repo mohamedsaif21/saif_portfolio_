@@ -1282,3 +1282,85 @@ html.lenis {
     padding-left: 24px;
   }
 }
+
+/* ==========================================================================
+   ADVANCED EXPERIMENTAL UPGRADES (PARTICLE CANVAS & SOUND CONFIG)
+   ========================================================================== */
+
+/* Particle Canvas */
+#trail-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 1; /* Just above background noise but below text cards */
+}
+
+/* Sound Toggle Button */
+.sound-toggle-btn {
+  background: none;
+  border: none;
+  color: var(--primary);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  padding: 8px;
+  transition: transform 0.3s ease, filter 0.3s ease;
+  z-index: 101;
+}
+
+.sound-toggle-btn:hover {
+  transform: scale(1.15);
+  filter: drop-shadow(0 0 8px var(--primary));
+}
+
+.sound-toggle-btn svg {
+  width: 100%;
+  height: 100%;
+}
+
+.mobile-sound-toggle {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--primary);
+  color: var(--text);
+  font-family: var(--font-main);
+  padding: 0.8rem 1.5rem;
+  border-radius: 30px;
+  margin-top: 1.5rem;
+  width: auto;
+  height: auto;
+  font-size: 1rem;
+  text-transform: uppercase;
+}
+
+.mobile-sound-toggle:hover {
+  background: var(--primary);
+  color: #000;
+}
+
+/* 3D Mockup Rotation support */
+.projects-section {
+  perspective: 1500px; /* Enable 3D depth in projects container */
+}
+
+.project-card {
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+}
+
+.project-image {
+  transform-style: preserve-3d;
+  transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+  box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.project-card:hover .project-image {
+  transform: translateZ(30px) rotateX(4deg) rotateY(-8deg);
+  box-shadow: -15px 25px 40px rgba(0,0,0,0.7), 0 0 30px rgba(196, 255, 0, 0.05);
+}

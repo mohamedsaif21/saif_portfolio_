@@ -411,3 +411,179 @@ if (lightbox && lightboxImg && certRows.length) {
         }
     });
 }
+
+// ==========================================================================
+// ADVANCED NEON PARTICLE TRAILS (Canvas Constellation Overlay)
+// ==========================================================================
+const trailCanvas = document.getElementById('trail-canvas');
+const trailCtx = trailCanvas ? trailCanvas.getContext('2d') : null;
+let trailParticles = [];
+
+if (trailCanvas && trailCtx && window.innerWidth > 768) {
+    const resizeTrailCanvas = () => {
+        trailCanvas.width = window.innerWidth;
+        trailCanvas.height = window.innerHeight;
+    };
+    window.addEventListener('resize', resizeTrailCanvas);
+    resizeTrailCanvas();
+
+    class TrailParticle {
+        constructor(x, y) {
+            this.x = x;
+            this.y = y;
+            this.size = Math.random() * 3 + 1.5;
+            this.speedX = (Math.random() - 0.5) * 1.2;
+            this.speedY = (Math.random() - 0.5) * 1.2;
+            this.color = '#c4ff00';
+            this.opacity = 1;
+            this.fadeSpeed = Math.random() * 0.012 + 0.008;
+        }
+
+        update() {
+            this.x += this.speedX;
+            this.y += this.speedY;
+            this.opacity -= this.fadeSpeed;
+        }
+
+        draw() {
+            trailCtx.save();
+            trailCtx.globalAlpha = this.opacity;
+            trailCtx.shadowBlur = 8;
+            trailCtx.shadowColor = this.color;
+            trailCtx.fillStyle = this.color;
+            trailCtx.beginPath();
+            trailCtx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+            trailCtx.fill();
+            trailCtx.restore();
+        }
+    }
+
+    window.addEventListener('mousemove', (e) => {
+        for (let i = 0; i < 2; i++) {
+            trailParticles.push(new TrailParticle(e.clientX, e.clientY));
+        }
+    });
+
+    function handleTrailParticles() {
+        trailCtx.clearRect(0, 0, trailCanvas.width, trailCanvas.height);
+        
+        for (let i = 0; i < trailParticles.length; i++) {
+            trailParticles[i].update();
+            trailParticles[i].draw();
+            
+            // Draw connector lines between nearby particles
+            for (let j = i + 1; j < trailParticles.length; j++) {
+                const dx = trailParticles[i].x - trailParticles[j].x;
+                const dy = trailParticles[i].y - trailParticles[j].y;
+                const distance = Math.sqrt(dx * dx + dy * dy);
+                
+                if (distance < 70) {
+                    trailCtx.save();
+                    trailCtx.strokeStyle = `rgba(196, 255, 0, ${trailParticles[i].opacity * 0.15})`;
+                    trailCtx.lineWidth = 0.8;
+                    trailCtx.beginPath();
+                    trailCtx.moveTo(trailParticles[i].x, trailParticles[i].y);
+                    trailCtx.lineTo(trailParticles[j].x, trailParticles[j].y);
+                    trailCtx.stroke();
+                    trailCtx.restore();
+                }
+            }
+
+            if (trailParticles[i].opacity <= 0) {
+                trailParticles.splice(i, 1);
+                i--;
+            }
+        }
+        requestAnimationFrame(handleTrailParticles);
+    }
+    handleTrailParticles();
+}
+
+// ==========================================================================
+// TACTILE UI SOUND DESIGN (Web Audio Synth Oscillator click notes)
+// ==========================================================================
+let audioCtx = null;
+let isAudioMuted = true; // default mute to obey user control and autoplay rules
+
+const soundOnIcons = document.querySelectorAll('.sound-on');
+const soundOffIcons = document.querySelectorAll('.sound-off');
+const mobileSoundToggles = document.querySelectorAll('.mobile-sound-toggle');
+const soundToggleButtons = document.querySelectorAll('.sound-toggle-btn');
+
+function initAudioContext() {
+    if (!audioCtx) {
+        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    }
+}
+
+function playUISound(frequency = 700, duration = 0.08, type = 'sine') {
+    if (isAudioMuted || !audioCtx) return;
+    try {
+        initAudioContext();
+        if (audioCtx.state === 'suspended') {
+            audioCtx.resume();
+        }
+        
+        const osc = audioCtx.createOscillator();
+        const gainNode = audioCtx.createGain();
+
+        osc.type = type;
+        osc.frequency.setValueAtTime(frequency, audioCtx.currentTime);
+        
+        gainNode.gain.setValueAtTime(0.04, audioCtx.currentTime);
+        gainNode.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + duration);
+
+        osc.connect(gainNode);
+        gainNode.connect(audioCtx.destination);
+
+        osc.start();
+        osc.stop(audioCtx.currentTime + duration);
+    } catch (err) {
+        console.warn("Sound play error:", err);
+    }
+}
+
+function toggleAudioState() {
+    isAudioMuted = !isAudioMuted;
+    if (!isAudioMuted) {
+        initAudioContext();
+        playUISound(440, 0.15, 'triangle'); // sound feedback tone
+    }
+
+    soundToggleButtons.forEach(btn => {
+        const soundOn = btn.querySelector('.sound-on');
+        const soundOff = btn.querySelector('.sound-off');
+        if (soundOn && soundOff) {
+            if (isAudioMuted) {
+                soundOn.style.display = 'none';
+                soundOff.style.display = 'block';
+            } else {
+                soundOn.style.display = 'block';
+                soundOff.style.display = 'none';
+            }
+        }
+    });
+
+    mobileSoundToggles.forEach(btn => {
+        btn.innerText = isAudioMuted ? 'Sound: Muted' : 'Sound: Active';
+    });
+}
+
+// Bind Mute Toggle click events
+soundToggleButtons.forEach(btn => btn.addEventListener('click', toggleAudioState));
+mobileSoundToggles.forEach(btn => btn.addEventListener('click', toggleAudioState));
+
+// Connect hover/clicks sound notes
+const hoverSoundItems = document.querySelectorAll('a, button, .certificate-row, .project-card, .tech-item');
+hoverSoundItems.forEach(el => {
+    el.addEventListener('mouseenter', () => {
+        if (!isAudioMuted) {
+            playUISound(600, 0.04, 'sine');
+        }
+    });
+    el.addEventListener('click', () => {
+        if (!isAudioMuted) {
+            playUISound(850, 0.1, 'sine');
+        }
+    });
+});
