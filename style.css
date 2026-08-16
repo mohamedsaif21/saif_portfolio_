@@ -729,6 +729,10 @@ a {
   margin-bottom: 0.75rem;
 }
 
+.project-title h3 {
+  margin-bottom: 0;
+}
+
 .project-tech {
   display: flex;
   align-items: center;
