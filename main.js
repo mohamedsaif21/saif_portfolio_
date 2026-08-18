@@ -339,7 +339,7 @@ const scrollObserver = new IntersectionObserver((entries) => {
     });
 }, { threshold: 0.1 });
 
-const animateElements = document.querySelectorAll('.animate-on-scroll, .timeline, .timeline-item');
+const animateElements = document.querySelectorAll('.animate-on-scroll, .timeline, .timeline-item, .hero-panel.hero-slide-1, .hero-panel.hero-slide-2, .hero-panel.hero-slide-3');
 animateElements.forEach(el => scrollObserver.observe(el));
 
 // CERTIFICATES INTERACTIVE LOGIC (Row Hover & Lightbox Modal)
