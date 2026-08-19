@@ -982,10 +982,11 @@ a {
   }
 
   .horizontal-wrapper {
-    position: static;
-    flex-direction: column;
-    width: 100%;
-    height: auto;
+    position: static !important;
+    flex-direction: column !important;
+    width: 100% !important;
+    height: auto !important;
+    transform: none !important;
   }
 
   .panel {
@@ -995,7 +996,6 @@ a {
     padding: 4rem 1.5rem;
   }
 
-  .hero-slide-1,
   .hero-slide-2,
   .hero-slide-3 {
     opacity: 0;
@@ -1003,7 +1003,6 @@ a {
     transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
   }
 
-  .hero-slide-1.visible,
   .hero-slide-2.visible,
   .hero-slide-3.visible {
     opacity: 1;

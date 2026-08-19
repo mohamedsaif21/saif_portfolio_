@@ -84,94 +84,108 @@ desktopLinks.forEach(link => {
     });
 });
 
-// GSAP HORIZONTAL SCROLL & ANIMATIONS (Desktop only)
-if (window.innerWidth > 768 && typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
-    // Register GSAP ScrollTrigger
+// GSAP SCROLLTRIGGERS AND RESPONSIVE MEDIA MATCHING
+if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
     gsap.registerPlugin(ScrollTrigger);
 
-    // Hero horizontal scroll
-    if (heroSection && heroWrapper) {
-        const maxScroll = heroWrapper.scrollWidth - window.innerWidth;
-        gsap.to(heroWrapper, {
-            x: -maxScroll,
-            ease: 'none',
-            scrollTrigger: {
-                trigger: heroSection,
-                start: 'top top',
-                end: 'bottom bottom',
-                scrub: 1,
-                invalidateOnRefresh: true,
-            }
-        });
-    }
+    let mm = gsap.matchMedia();
 
-    // Posters horizontal scroll
-    if (postersSection && postersWrapper) {
-        const maxScroll = postersWrapper.scrollWidth - window.innerWidth;
-        gsap.to(postersWrapper, {
-            x: -maxScroll,
-            ease: 'none',
-            scrollTrigger: {
-                trigger: postersSection,
-                start: 'top top',
-                end: 'bottom bottom',
-                scrub: 1,
-                invalidateOnRefresh: true,
-            }
-        });
+    // Desktop viewport matching (min-width: 769px)
+    mm.add("(min-width: 769px)", () => {
+        // Hero horizontal scroll
+        if (heroSection && heroWrapper) {
+            const maxScroll = heroWrapper.scrollWidth - window.innerWidth;
+            gsap.to(heroWrapper, {
+                x: -maxScroll,
+                ease: 'none',
+                scrollTrigger: {
+                    trigger: heroSection,
+                    start: 'top top',
+                    end: 'bottom bottom',
+                    scrub: 1,
+                    invalidateOnRefresh: true,
+                }
+            });
+        }
 
-        // Zoom poster intro text on scroll
-        const posterIntro = document.querySelector('.poster-intro');
-        if (posterIntro) {
-            gsap.fromTo(posterIntro, 
-                { scale: 0.8 },
+        // Posters horizontal scroll
+        if (postersSection && postersWrapper) {
+            const maxScroll = postersWrapper.scrollWidth - window.innerWidth;
+            gsap.to(postersWrapper, {
+                x: -maxScroll,
+                ease: 'none',
+                scrollTrigger: {
+                    trigger: postersSection,
+                    start: 'top top',
+                    end: 'bottom bottom',
+                    scrub: 1,
+                    invalidateOnRefresh: true,
+                }
+            });
+
+            // Zoom poster intro text on scroll
+            const posterIntro = document.querySelector('.poster-intro');
+            if (posterIntro) {
+                gsap.fromTo(posterIntro, 
+                    { scale: 0.8 },
+                    {
+                        scale: 1.15,
+                        ease: 'none',
+                        scrollTrigger: {
+                            trigger: postersSection,
+                            start: 'top bottom',
+                            end: 'bottom top',
+                            scrub: true
+                        }
+                    }
+                );
+            }
+        }
+
+        // GSAP Parallax
+        const parallaxElements = document.querySelectorAll('.parallax-element');
+        parallaxElements.forEach(el => {
+            const speed = parseFloat(el.dataset.speed || 0.1);
+            gsap.fromTo(el,
+                { y: -80 * speed },
                 {
-                    scale: 1.15,
+                    y: 80 * speed,
                     ease: 'none',
                     scrollTrigger: {
-                        trigger: postersSection,
+                        trigger: el,
                         start: 'top bottom',
                         end: 'bottom top',
                         scrub: true
                     }
                 }
             );
-        }
-    }
-
-    // GSAP Parallax
-    const parallaxElements = document.querySelectorAll('.parallax-element');
-    parallaxElements.forEach(el => {
-        const speed = parseFloat(el.dataset.speed || 0.1);
-        gsap.fromTo(el,
-            { y: -80 * speed },
-            {
-                y: 80 * speed,
-                ease: 'none',
-                scrollTrigger: {
-                    trigger: el,
-                    start: 'top bottom',
-                    end: 'bottom top',
-                    scrub: true
-                }
-            }
-        );
-    });
-} else {
-    // Fallback parallax for mobile (simple loop to keep mobile high performance)
-    function handleMobileParallax() {
-        const parallaxElements = document.querySelectorAll('.parallax-element');
-        parallaxElements.forEach(el => {
-            const speed = parseFloat(el.dataset.speed || 0.1) * 0.4;
-            const rect = el.getBoundingClientRect();
-            if (rect.top < window.innerHeight && rect.bottom > 0) {
-                const distFromCenter = (rect.top + rect.height/2) - window.innerHeight/2;
-                el.style.transform = `translateY(${distFromCenter * speed}px)`;
-            }
         });
-        requestAnimationFrame(handleMobileParallax);
-    }
-    requestAnimationFrame(handleMobileParallax);
+    });
+
+    // Mobile viewport matching (max-width: 768px)
+    mm.add("(max-width: 768px)", () => {
+        let mobileParallaxFrame;
+        function handleMobileParallax() {
+            const parallaxElements = document.querySelectorAll('.parallax-element');
+            parallaxElements.forEach(el => {
+                const speed = parseFloat(el.dataset.speed || 0.1) * 0.4;
+                const rect = el.getBoundingClientRect();
+                if (rect.top < window.innerHeight && rect.bottom > 0) {
+                    const distFromCenter = (rect.top + rect.height/2) - window.innerHeight/2;
+                    el.style.transform = `translateY(${distFromCenter * speed}px)`;
+                }
+            });
+            mobileParallaxFrame = requestAnimationFrame(handleMobileParallax);
+        }
+        mobileParallaxFrame = requestAnimationFrame(handleMobileParallax);
+
+        // Cleanup callback when switching viewports
+        return () => {
+            cancelAnimationFrame(mobileParallaxFrame);
+            const parallaxElements = document.querySelectorAll('.parallax-element');
+            parallaxElements.forEach(el => el.style.transform = '');
+        };
+    });
 }
 
 // INTERACTIVE MOUSE CUSTOM CURSOR
