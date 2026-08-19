@@ -1014,7 +1014,7 @@ a {
   }
 
   .hero-title {
-    font-size: 3.5rem;
+    font-size: 2.8rem;
     line-height: 1.1;
   }
 
@@ -1115,8 +1115,8 @@ a {
   }
 
   .exp-title {
-    font-size: 50px;
-    margin-bottom: 60px;
+    font-size: 2.6rem;
+    margin-bottom: 40px;
   }
 
   .timeline-item {
@@ -1272,6 +1272,7 @@ a {
   display: inline-block;
   overflow: hidden;
   vertical-align: top;
+  white-space: nowrap;
 }
 
 /* 4. Experience timeline adjustments */

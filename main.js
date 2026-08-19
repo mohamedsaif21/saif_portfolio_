@@ -287,26 +287,42 @@ function setupTextReveal() {
     const targets = document.querySelectorAll('.hero-title, .exp-title, .stack-section h2, .certificates-section h2, .poster-intro h2, .projects-section h2, .contact-section h2');
     
     targets.forEach(target => {
-        const text = target.innerText;
+        const childNodes = Array.from(target.childNodes);
         target.innerHTML = '';
         
-        const words = text.split(' ');
-        words.forEach((word, wordIndex) => {
-            const wordSpan = document.createElement('span');
-            wordSpan.className = 'reveal-text-word';
-            
-            const chars = word.split('');
-            chars.forEach((char, charIndex) => {
-                const charSpan = document.createElement('span');
-                charSpan.className = 'reveal-text-char';
-                charSpan.innerText = char;
-                charSpan.style.transitionDelay = `${(wordIndex * 2 + charIndex) * 0.02}s`;
-                wordSpan.appendChild(charSpan);
-            });
-            
-            target.appendChild(wordSpan);
-            if (wordIndex < words.length - 1) {
-                target.appendChild(document.createTextNode(' '));
+        let wordCounter = 0;
+        
+        childNodes.forEach(node => {
+            if (node.nodeType === Node.TEXT_NODE) {
+                const text = node.textContent;
+                const words = text.split(' ');
+                
+                words.forEach((word, wordIndex) => {
+                    if (word === '') return;
+                    
+                    const wordSpan = document.createElement('span');
+                    wordSpan.className = 'reveal-text-word';
+                    
+                    const chars = word.split('');
+                    chars.forEach((char, charIndex) => {
+                        const charSpan = document.createElement('span');
+                        charSpan.className = 'reveal-text-char';
+                        charSpan.innerText = char;
+                        charSpan.style.transitionDelay = `${(wordCounter * 2 + charIndex) * 0.02}s`;
+                        wordSpan.appendChild(charSpan);
+                    });
+                    
+                    target.appendChild(wordSpan);
+                    wordCounter++;
+                    
+                    if (wordIndex < words.length - 1) {
+                        target.appendChild(document.createTextNode(' '));
+                    }
+                });
+            } else if (node.nodeName === 'BR') {
+                target.appendChild(document.createElement('br'));
+            } else {
+                target.appendChild(node.cloneNode(true));
             }
         });
 
