@@ -1014,7 +1014,7 @@ a {
   }
 
   .hero-title {
-    font-size: 2.8rem;
+    font-size: 2.4rem;
     line-height: 1.1;
   }
 
@@ -1115,7 +1115,7 @@ a {
   }
 
   .exp-title {
-    font-size: 2.6rem;
+    font-size: 2.2rem;
     margin-bottom: 40px;
   }
 
@@ -1163,7 +1163,7 @@ a {
 
 @media (max-width: 1024px) {
   .exp-title {
-    font-size: 80px;
+    font-size: 3.5rem;
   }
 
   .timeline-item {
