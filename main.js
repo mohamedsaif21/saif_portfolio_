@@ -372,6 +372,69 @@ const scrollObserver = new IntersectionObserver((entries) => {
 const animateElements = document.querySelectorAll('.animate-on-scroll, .timeline, .timeline-item, .hero-panel.hero-slide-1, .hero-panel.hero-slide-2, .hero-panel.hero-slide-3');
 animateElements.forEach(el => scrollObserver.observe(el));
 
+// ==========================================================================
+// BENTO GRID GALLERY LOGIC (Scroll Reveal, Antigravity Float, & Video Controls)
+// ==========================================================================
+const bentoSection = document.querySelector('.bento-section');
+const bentoCards = document.querySelectorAll('.bento-card');
+const bentoVideoCard = document.querySelector('.bento-video-card');
+const bentoVideo = document.querySelector('.bento-video');
+const bentoPlayBtn = document.querySelector('.bento-play-btn');
+const playIcon = bentoPlayBtn ? bentoPlayBtn.querySelector('.play-icon') : null;
+const pauseIcon = bentoPlayBtn ? bentoPlayBtn.querySelector('.pause-icon') : null;
+
+if (bentoSection && bentoCards.length) {
+    const bentoObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                bentoSection.classList.add('is-in-view');
+                // Activate continuous antigravity float after staggered entrance completes
+                setTimeout(() => {
+                    bentoCards.forEach(card => card.classList.add('floating-active'));
+                }, 1200);
+                bentoObserver.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.15 });
+
+    bentoObserver.observe(bentoSection);
+}
+
+// Video Play / Pause Toggle Interaction
+if (bentoVideo && bentoPlayBtn) {
+    function updatePlayStateIcon() {
+        if (bentoVideo.paused) {
+            if (playIcon) playIcon.style.display = 'block';
+            if (pauseIcon) pauseIcon.style.display = 'none';
+        } else {
+            if (playIcon) playIcon.style.display = 'none';
+            if (pauseIcon) pauseIcon.style.display = 'block';
+        }
+    }
+
+    function toggleVideoPlay(e) {
+        if (e) e.stopPropagation();
+        if (bentoVideo.paused) {
+            bentoVideo.play().catch(err => console.log('Autoplay constraint:', err));
+        } else {
+            bentoVideo.pause();
+        }
+        updatePlayStateIcon();
+    }
+
+    bentoPlayBtn.addEventListener('click', toggleVideoPlay);
+    if (bentoVideoCard) {
+        bentoVideoCard.addEventListener('click', (e) => {
+            if (!e.target.closest('.bento-play-btn')) {
+                toggleVideoPlay(e);
+            }
+        });
+    }
+
+    bentoVideo.addEventListener('play', updatePlayStateIcon);
+    bentoVideo.addEventListener('pause', updatePlayStateIcon);
+}
+
 // CERTIFICATES INTERACTIVE LOGIC (Row Hover & Lightbox Modal)
 const certRows = document.querySelectorAll('.certificate-row');
 const certPreview = document.querySelector('.cert-floating-preview');
