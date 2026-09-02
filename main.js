@@ -220,7 +220,7 @@ function updateCursorRing() {
 updateCursorRing();
 
 // Custom cursor hover states
-const hoverables = document.querySelectorAll('a, button, .project-card, .certificate-row, .tech-item, .hamburger-btn');
+const hoverables = document.querySelectorAll('a, button, .project-card, .certificate-row, .tech-item, .hamburger-btn, .bento-card, .bento-play-btn');
 hoverables.forEach(el => {
     el.addEventListener('mouseenter', () => {
         if (cursorRing) cursorRing.classList.add('hovered');
