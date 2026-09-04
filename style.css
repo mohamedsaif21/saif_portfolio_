@@ -1410,18 +1410,17 @@ html.lenis {
    BENTO GRID GALLERY SECTION (Antigravity Floating Effect)
    ========================================================================== */
 /* ==========================================================================
-   LANDO NORRIS EDITORIAL GALLERY SECTION (Off-White Draggable Floating Canvas)
+   LANDO NORRIS EDITORIAL GALLERY SECTION (Dark Olive #22261F Theme)
    ========================================================================== */
-.landonorris-gallery-section {
+.landonorris-gallery-section.dark-editorial-theme {
   position: relative;
   width: 100%;
-  min-height: 100vh;
-  background: #EBEAE5 !important; /* Off-white warm bone color */
-  color: #111111;
+  height: 100vh;
+  background-color: #22261F !important;
+  color: #EBEAE5;
   overflow: hidden;
   user-select: none;
   z-index: 2;
-  padding: 0;
 }
 
 .contour-lines-bg {
@@ -1431,7 +1430,7 @@ html.lenis {
   width: 100%;
   height: 100%;
   z-index: 0;
-  opacity: 0.85;
+  opacity: 0.9;
 }
 
 .contour-lines-bg svg {
@@ -1440,7 +1439,23 @@ html.lenis {
   object-fit: cover;
 }
 
-/* Editorial Header & Hint */
+/* Giant Low-Contrast Background Watermark */
+.gallery-watermark {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: 'Space Grotesk', var(--font-main), sans-serif;
+  font-size: clamp(6rem, 16vw, 18rem);
+  font-weight: 900;
+  color: rgba(255, 255, 255, 0.04);
+  letter-spacing: 0.1em;
+  pointer-events: none;
+  z-index: 0;
+  white-space: nowrap;
+}
+
+/* Editorial Header */
 .landonorris-header {
   position: absolute;
   top: 2.5rem;
@@ -1460,7 +1475,7 @@ html.lenis {
   font-size: 11px;
   font-weight: 700;
   letter-spacing: 0.15em;
-  color: #111111;
+  color: #C3CDAF;
   text-transform: uppercase;
 }
 
@@ -1469,50 +1484,75 @@ html.lenis {
   font-size: 10px;
   font-weight: 700;
   letter-spacing: 0.12em;
-  color: #666666;
+  color: #8E9484;
   text-transform: uppercase;
 }
 
-/* 2D Draggable Plane Wrapper & Inner Container */
-.gallery-plane-wrapper {
+/* Track Wrapper & Horizontal Track */
+.gallery-track-wrapper {
   position: relative;
   width: 100%;
   height: 100vh;
   overflow: hidden;
-  cursor: grab;
 }
 
-.gallery-plane-wrapper:active {
-  cursor: grabbing;
-}
-
-.gallery-plane {
-  position: absolute;
-  width: 240vw;
-  min-height: 120vh;
-  top: 0;
-  left: 0;
-  will-change: transform;
-  transform-style: preserve-3d;
-}
-
-/* Card Styling & Strict 0px Border Radius */
-.landonorris-card {
-  position: absolute;
-  display: block;
-  background: transparent;
-  border-radius: 0 !important; /* Strict 0px cutouts */
-  border: none;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
-  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease;
-  will-change: transform;
+.gallery-track {
+  display: flex;
+  align-items: center;
+  height: 100vh;
+  width: max-content;
+  padding: 0 10vw;
+  gap: 8vw;
+  position: relative;
   z-index: 2;
+  will-change: transform;
+}
+
+/* Cards Base & Scale-Down Rules using clamp() */
+.landonorris-card {
+  position: relative;
+  flex-shrink: 0;
+  border-radius: 0 !important;
+  border: none;
+  background: transparent;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.25);
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease;
+  will-change: transform, opacity;
 }
 
 .landonorris-card:hover {
-  transform: scale(1.025) !important;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12) !important;
+  transform: scale(1.03) translateY(-6px) !important;
+  box-shadow: 0 24px 50px rgba(0, 0, 0, 0.4) !important;
   z-index: 15 !important;
+}
+
+/* Card Size Categories (Scales down cards by ~40% for breathing room) */
+.card-standard {
+  width: clamp(200px, 18vw, 300px);
+  height: clamp(260px, 22vw, 380px);
+}
+
+.card-hero {
+  width: clamp(280px, 25vw, 400px);
+  height: clamp(340px, 30vw, 480px);
+}
+
+.card-compact {
+  width: clamp(160px, 14vw, 220px);
+  height: clamp(210px, 17vw, 290px);
+}
+
+/* Vertical Stagger Offsets on Track */
+.gallery-track .landonorris-card:nth-child(odd) {
+  margin-top: -6vh;
+}
+
+.gallery-track .landonorris-card:nth-child(even) {
+  margin-top: 8vh;
+}
+
+.gallery-track .landonorris-card:nth-child(3n) {
+  margin-top: 2vh;
 }
 
 /* Metadata Text (Outside Top-Left Corner) */
@@ -1523,20 +1563,21 @@ html.lenis {
   font-family: 'Space Grotesk', var(--font-main), sans-serif;
   font-size: 10px;
   font-weight: 700;
-  letter-spacing: 0.08em;
-  color: #4A4A4A;
+  letter-spacing: 0.1em;
+  color: #8E9484;
   text-transform: uppercase;
   white-space: nowrap;
   pointer-events: none;
 }
 
-/* Image Container Frame (Sharp 0px Cutout) */
+/* Image & Video Frames */
 .landonorris-frame {
   width: 100%;
   height: 100%;
   overflow: hidden;
   border-radius: 0 !important;
   position: relative;
+  background: #181B16;
 }
 
 .landonorris-img {
@@ -1545,40 +1586,37 @@ html.lenis {
   object-fit: cover;
   border-radius: 0 !important;
   display: block;
-  filter: contrast(1.02) saturate(0.95);
-  transition: filter 0.4s ease, transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  filter: contrast(1.03) brightness(0.95);
+  transition: filter 0.4s ease;
 }
 
 .landonorris-card:hover .landonorris-img {
-  filter: contrast(1.05) saturate(1.05);
+  filter: contrast(1.08) brightness(1.05);
 }
 
-/* Asymmetric Organic Coordinates (Matching Lando Norris Image 1 Layout) */
-.card-pos-1 { top: 12vh; left: 6vw; width: 230px; height: 230px; }            /* Square BRITAIN */
-.card-pos-2 { top: 22vh; left: 24vw; width: 270px; height: 330px; }           /* Tall HIGH PERFORMANCE GALA */
-.card-pos-3 { top: 10vh; left: 45vw; width: 440px; height: 550px; }           /* Large Hero BARCELONA */
-.card-pos-4 { top: 52vh; left: 10vw; width: 280px; height: 340px; }           /* Portrait BATTERSEA */
-.card-pos-5 { top: 62vh; left: 32vw; width: 250px; height: 270px; }           /* Square US */
-.card-pos-6 { top: 18vh; left: 78vw; width: 360px; height: 230px; }           /* Wide SINGAPORE */
-.card-pos-7 { top: 58vh; left: 72vw; width: 290px; height: 360px; }           /* Portrait MONACO */
-.card-pos-8 { top: 32vh; left: 102vw; width: 400px; height: 270px; }          /* Wide ABU DHABI */
-.card-pos-9 { top: 66vh; left: 125vw; width: 270px; height: 340px; }          /* Portrait AUSTIN */
+/* Video Card Specifics */
+.gallery-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  border-radius: 0 !important;
+  pointer-events: none;
+}
 
 /* Editorial Accent Quote in Negative Space */
 .landonorris-editorial-accent {
-  position: absolute;
-  top: 72vh;
-  left: 45vw;
-  max-width: 480px;
+  flex-shrink: 0;
+  max-width: 440px;
+  margin-left: 4vw;
   pointer-events: none;
-  z-index: 1;
 }
 
 .landonorris-serif-quote {
   font-family: 'Outfit', Georgia, serif;
   font-size: 1.15rem;
-  line-height: 1.6;
-  color: #333333;
+  line-height: 1.65;
+  color: #EBEAE5;
   font-style: italic;
   margin-bottom: 0.75rem;
 }
@@ -1595,29 +1633,12 @@ html.lenis {
 
 .landonorris-badge-accent {
   position: absolute;
-  top: 78vh;
-  left: 10vw;
-  border: 1px solid #333333;
+  bottom: 3rem;
+  left: 3rem;
+  border: 1px solid rgba(195, 205, 175, 0.3);
   padding: 0.3rem 0.6rem;
   font-size: 11px;
   font-weight: 700;
-  color: #111111;
+  color: #C3CDAF;
   pointer-events: none;
-}
-
-/* Mobile Responsive Adjustments */
-@media (max-width: 768px) {
-  .gallery-plane {
-    width: 320vw;
-    min-height: 100vh;
-  }
-  .card-pos-1 { top: 12vh; left: 8vw; width: 170px; height: 170px; }
-  .card-pos-2 { top: 22vh; left: 38vw; width: 190px; height: 240px; }
-  .card-pos-3 { top: 10vh; left: 72vw; width: 280px; height: 360px; }
-  .card-pos-4 { top: 52vh; left: 14vw; width: 200px; height: 250px; }
-  .card-pos-5 { top: 62vh; left: 48vw; width: 180px; height: 190px; }
-  .card-pos-6 { top: 18vh; left: 115vw; width: 260px; height: 170px; }
-  .card-pos-7 { top: 58vh; left: 108vw; width: 200px; height: 250px; }
-  .card-pos-8 { top: 32vh; left: 160vw; width: 260px; height: 180px; }
-  .card-pos-9 { top: 66vh; left: 200vw; width: 190px; height: 240px; }
 }

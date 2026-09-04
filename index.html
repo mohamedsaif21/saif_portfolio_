@@ -120,112 +120,117 @@
     </div>
   </section>
 
-  <!-- SECTION: LANDO NORRIS EDITORIAL GALLERY (Off-White Draggable Floating Canvas) -->
-  <section id="gallery" class="landonorris-gallery-section">
-    <!-- Inline SVG Contour Lines (Light Dark Lines on Off-White #EBEAE5) -->
+  <!-- SECTION: LANDO NORRIS EDITORIAL GALLERY (Dark Olive #22261F Pinned Sequential Track) -->
+  <section id="gallery" class="landonorris-gallery-section dark-editorial-theme">
+    <!-- Inline SVG Contour Lines (Light Sand Lines on Dark Olive #22261F) -->
     <div class="contour-lines-bg" aria-hidden="true">
       <svg viewBox="0 0 1600 1000" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
-        <path d="M-100 180 C300 40, 700 320, 1100 120 C1350 20, 1550 220, 1700 380" stroke="rgba(0, 0, 0, 0.14)" stroke-width="1.2" stroke-dasharray="4 4"/>
-        <path d="M-50 320 C250 160, 600 460, 950 260 C1250 100, 1480 350, 1650 520" stroke="rgba(0, 0, 0, 0.14)" stroke-width="1.5"/>
-        <path d="M-150 480 C150 290, 500 580, 850 390 C1180 190, 1400 460, 1600 680" stroke="rgba(0, 0, 0, 0.14)" stroke-width="1"/>
-        <path d="M-80 620 C220 450, 580 720, 920 540 C1220 350, 1450 580, 1680 790" stroke="rgba(0, 0, 0, 0.14)" stroke-width="1.2" stroke-dasharray="6 3"/>
-        <path d="M-120 780 C180 570, 520 840, 880 650 C1150 470, 1380 740, 1620 920" stroke="rgba(0, 0, 0, 0.14)" stroke-width="1.4"/>
-        <path d="M180 -50 C430 180, 330 520, 630 720 C830 870, 1080 780, 1280 980" stroke="rgba(0, 0, 0, 0.14)" stroke-width="1"/>
-        <path d="M380 -80 C630 130, 530 450, 830 650 C1030 790, 1230 720, 1430 890" stroke="rgba(0, 0, 0, 0.14)" stroke-width="1.3"/>
+        <path d="M-100 180 C300 40, 700 320, 1100 120 C1350 20, 1550 220, 1700 380" stroke="rgba(195, 205, 175, 0.12)" stroke-width="1.2" stroke-dasharray="4 4"/>
+        <path d="M-50 320 C250 160, 600 460, 950 260 C1250 100, 1480 350, 1650 520" stroke="rgba(195, 205, 175, 0.12)" stroke-width="1.5"/>
+        <path d="M-150 480 C150 290, 500 580, 850 390 C1180 190, 1400 460, 1600 680" stroke="rgba(195, 205, 175, 0.12)" stroke-width="1"/>
+        <path d="M-80 620 C220 450, 580 720, 920 540 C1220 350, 1450 580, 1680 790" stroke="rgba(195, 205, 175, 0.12)" stroke-width="1.2" stroke-dasharray="6 3"/>
+        <path d="M-120 780 C180 570, 520 840, 880 650 C1150 470, 1380 740, 1620 920" stroke="rgba(195, 205, 175, 0.12)" stroke-width="1.4"/>
+        <path d="M180 -50 C430 180, 330 520, 630 720 C830 870, 1080 780, 1280 980" stroke="rgba(195, 205, 175, 0.12)" stroke-width="1"/>
+        <path d="M380 -80 C630 130, 530 450, 830 650 C1030 790, 1230 720, 1430 890" stroke="rgba(195, 205, 175, 0.12)" stroke-width="1.3"/>
       </svg>
     </div>
+
+    <!-- Low Contrast Background Watermark Text -->
+    <div class="gallery-watermark" aria-hidden="true">GALLERY</div>
 
     <!-- Editorial Header Hint -->
     <div class="landonorris-header">
       <div class="landonorris-badge-row">
         <span class="landonorris-badge">EDITORIAL GALLERY</span>
-        <span class="landonorris-drag-hint">DRAG / SCROLL TO EXPLORE PLANE</span>
+        <span class="landonorris-drag-hint">SCROLL DOWN TO ADVANCE SHOWCASE</span>
       </div>
     </div>
 
-    <!-- 2D Draggable Plane Container (240vw x 120vh) -->
-    <div class="gallery-plane-wrapper">
-      <div class="gallery-plane" id="galleryPlane">
+    <!-- Pinned Horizontal Track Container -->
+    <div class="gallery-track-wrapper">
+      <div class="gallery-track" id="galleryTrack">
         
-        <!-- Card 1: BRITAIN, 2025 (Square 1:1) -->
-        <div class="landonorris-card card-pos-1" data-speed="0.12" data-parallax-x="1.1" data-parallax-y="0.9">
+        <!-- Card 1: BRITAIN, 2025 -->
+        <div class="landonorris-card card-standard" data-speed="0.8">
           <span class="landonorris-meta">BRITAIN, 2025</span>
           <div class="landonorris-frame">
             <img src="./Assest/dashboard.png" alt="ODFE POS Platform" class="landonorris-img" loading="lazy">
           </div>
         </div>
 
-        <!-- Card 2: HIGH PERFORMANCE GALA, 2024 (Tall Portrait 4:5) -->
-        <div class="landonorris-card card-pos-2" data-speed="-0.1" data-parallax-x="-0.8" data-parallax-y="1.2">
+        <!-- Card 2: HIGH PERFORMANCE GALA, 2024 -->
+        <div class="landonorris-card card-hero" data-speed="1.2">
           <span class="landonorris-meta">HIGH PERFORMANCE GALA, 2024</span>
           <div class="landonorris-frame">
             <img src="./Assest/livekit.png" alt="RUHI Voice Assistant" class="landonorris-img" loading="lazy">
           </div>
         </div>
 
-        <!-- Card 3: BARCELONA, 2024 (Large Hero Photo) -->
-        <div class="landonorris-card card-pos-3" data-speed="0.18" data-parallax-x="1.4" data-parallax-y="-0.7">
+        <!-- Card 3: BARCELONA, 2024 -->
+        <div class="landonorris-card card-hero" data-speed="0.9">
           <span class="landonorris-meta">BARCELONA, 2024</span>
           <div class="landonorris-frame">
             <img src="./Assest/saif.jpeg" alt="Mohamed Saif" class="landonorris-img" loading="lazy">
           </div>
         </div>
 
-        <!-- Card 4: BATTERSEA, 2024 (Portrait Photo) -->
-        <div class="landonorris-card card-pos-4" data-speed="-0.15" data-parallax-x="-1.2" data-parallax-y="-1.0">
+        <!-- Card 4: BATTERSEA, 2024 -->
+        <div class="landonorris-card card-compact" data-speed="1.1">
           <span class="landonorris-meta">BATTERSEA, 2024</span>
           <div class="landonorris-frame">
             <img src="./Assest/img.png" alt="Graphic Design Poster" class="landonorris-img" loading="lazy">
           </div>
         </div>
 
-        <!-- Card 5: US, 2024 (Center Hero Feature) -->
-        <div class="landonorris-card card-pos-5" data-speed="0.08" data-parallax-x="0.6" data-parallax-y="0.5">
-          <span class="landonorris-meta">US, 2024</span>
+        <!-- Card 5: FEATURE REEL, 2026 (Autoplay Muted Looping Video Card) -->
+        <div class="landonorris-card card-hero video-card" data-speed="1.3">
+          <span class="landonorris-meta">FEATURE REEL, 2026</span>
           <div class="landonorris-frame">
-            <img src="./Assest/Hand2voice.jpeg" alt="Hand2Voices Reel" class="landonorris-img" loading="lazy">
+            <video autoplay loop muted playsinline webkit-playsinline poster="./Assest/Hand2voice.jpeg" class="gallery-video">
+              <source src="./Assest/showcase.mp4" type="video/mp4" />
+            </video>
           </div>
         </div>
 
-        <!-- Card 6: SINGAPORE, 2025 (Wide 16:9 Landscape) -->
-        <div class="landonorris-card card-pos-6" data-speed="0.2" data-parallax-x="1.5" data-parallax-y="-1.3">
+        <!-- Card 6: SINGAPORE, 2025 -->
+        <div class="landonorris-card card-standard" data-speed="0.75">
           <span class="landonorris-meta">SINGAPORE, 2025</span>
           <div class="landonorris-frame">
             <img src="./Assest/hand2voice app.png" alt="Hand2Voices App" class="landonorris-img" loading="lazy">
           </div>
         </div>
 
-        <!-- Card 7: MONACO, 2025 (Square Photo) -->
-        <div class="landonorris-card card-pos-7" data-speed="-0.12" data-parallax-x="-0.9" data-parallax-y="1.1">
+        <!-- Card 7: MONACO, 2025 -->
+        <div class="landonorris-card card-compact" data-speed="1.15">
           <span class="landonorris-meta">MONACO, 2025</span>
           <div class="landonorris-frame">
             <img src="./Assest/img3.png" alt="Typography Poster" class="landonorris-img" loading="lazy">
           </div>
         </div>
 
-        <!-- Card 8: ABU DHABI, 2025 (Wide Landscape) -->
-        <div class="landonorris-card card-pos-8" data-speed="0.14" data-parallax-x="1.0" data-parallax-y="1.4">
+        <!-- Card 8: ABU DHABI, 2025 -->
+        <div class="landonorris-card card-standard" data-speed="0.85">
           <span class="landonorris-meta">ABU DHABI, 2025</span>
           <div class="landonorris-frame">
             <img src="./Assest/Resucraft AI.png" alt="ResuCraft AI" class="landonorris-img" loading="lazy">
           </div>
         </div>
 
-        <!-- Card 9: AUSTIN, 2024 (Tall Portrait) -->
-        <div class="landonorris-card card-pos-9" data-speed="-0.18" data-parallax-x="-1.4" data-parallax-y="-0.8">
+        <!-- Card 9: AUSTIN, 2024 -->
+        <div class="landonorris-card card-standard" data-speed="1.0">
           <span class="landonorris-meta">AUSTIN, 2024</span>
           <div class="landonorris-frame">
             <img src="./Assest/img4.png" alt="Experimental Design" class="landonorris-img" loading="lazy">
           </div>
         </div>
 
-        <!-- Editorial Quote Accent in Negative Space (Matching Lando Norris Image 1) -->
+        <!-- Editorial Quote Accent in Negative Space -->
         <div class="landonorris-editorial-accent">
           <p class="landonorris-serif-quote">
             "Since I was 7 years old and had my first experience with kart racing, I've worked tirelessly to make that dream come true."
           </p>
           <div class="landonorris-signature-wrap">
-            <svg class="landonorris-signature-svg" viewBox="0 0 160 40" fill="none" stroke="#111111" stroke-width="1.8">
+            <svg class="landonorris-signature-svg" viewBox="0 0 160 40" fill="none" stroke="#EBEAE5" stroke-width="1.8">
               <path d="M10,25 C30,5 45,35 60,15 C75,-5 90,30 110,20 C130,10 145,25 155,20" />
             </svg>
           </div>
