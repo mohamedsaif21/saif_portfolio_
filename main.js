@@ -160,6 +160,70 @@ if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
                 }
             );
         });
+
+        // Lando Norris Inspired Editorial Bento Gallery Multi-Speed Scroll & Inner Image Scrub
+        const gallerySec = document.querySelector('.bento-section');
+        const bentoGridCards = document.querySelectorAll('.bento-card');
+        const topoCanvasSvg = document.querySelector('.gallery-topographic-canvas svg');
+
+        if (gallerySec && bentoGridCards.length) {
+            // 1. Topographic background subtle drift
+            if (topoCanvasSvg) {
+                gsap.fromTo(topoCanvasSvg,
+                    { yPercent: -8, scale: 1 },
+                    {
+                        yPercent: 8,
+                        scale: 1.06,
+                        ease: 'none',
+                        scrollTrigger: {
+                            trigger: gallerySec,
+                            start: 'top bottom',
+                            end: 'bottom top',
+                            scrub: 1.2
+                        }
+                    }
+                );
+            }
+
+            // 2. Multi-speed floating parallax & inner image scrub per card
+            bentoGridCards.forEach(card => {
+                const speed = parseFloat(card.dataset.speed || 0.1);
+                const innerImg = card.querySelector('.bento-media-img');
+
+                // Card vertical drift parallax
+                gsap.fromTo(card,
+                    { y: -140 * speed },
+                    {
+                        y: 140 * speed,
+                        ease: 'none',
+                        scrollTrigger: {
+                            trigger: gallerySec,
+                            start: 'top bottom',
+                            end: 'bottom top',
+                            scrub: 1
+                        }
+                    }
+                );
+
+                // Inner image window scrub effect (Lando Norris style image panning inside container)
+                if (innerImg) {
+                    gsap.fromTo(innerImg,
+                        { yPercent: -15, scale: 1.18 },
+                        {
+                            yPercent: 15,
+                            scale: 1.04,
+                            ease: 'none',
+                            scrollTrigger: {
+                                trigger: card,
+                                start: 'top bottom',
+                                end: 'bottom top',
+                                scrub: 0.8
+                            }
+                        }
+                    );
+                }
+            });
+        }
     });
 
     // Mobile viewport matching (max-width: 768px)

@@ -1409,6 +1409,9 @@ html.lenis {
 /* ==========================================================================
    BENTO GRID GALLERY SECTION (Antigravity Floating Effect)
    ========================================================================== */
+/* ==========================================================================
+   BENTO GRID GALLERY SECTION (Lando Norris Inspired Editorial Scroll Animation)
+   ========================================================================== */
 .bento-section {
   padding: 8rem 2rem;
   position: relative;
@@ -1417,7 +1420,29 @@ html.lenis {
   z-index: 2;
 }
 
+/* Topographic Contour Background Canvas */
+.gallery-topographic-canvas {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.4;
+  color: var(--primary);
+  mix-blend-mode: overlay;
+  overflow: hidden;
+}
+
+.gallery-topographic-canvas svg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform-origin: center center;
+  will-change: transform;
+}
+
 .bento-header {
+  position: relative;
+  z-index: 3;
   margin-bottom: 4rem;
   text-align: center;
 }
@@ -1454,10 +1479,12 @@ html.lenis {
 
 /* Bento 4-Column Grid */
 .bento-grid {
+  position: relative;
+  z-index: 3;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   grid-auto-rows: 240px;
-  gap: 1.5rem;
+  gap: 1.75rem;
   max-width: 1300px;
   margin: 0 auto;
 }
@@ -1477,7 +1504,7 @@ html.lenis {
 /* Cohesive Card Base Styling */
 .bento-card {
   position: relative;
-  border-radius: 20px;
+  border-radius: 18px;
   background: var(--surface);
   border: 1px solid rgba(255, 255, 255, 0.1);
   overflow: hidden;
@@ -1487,63 +1514,79 @@ html.lenis {
   opacity: 0;
   transform: translateY(60px) scale(0.94);
   transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
-              transform 0.8s cubic-bezier(0.16, 1, 0.3, 1),
               border-color 0.4s ease,
               box-shadow 0.4s ease;
   will-change: transform, opacity;
 }
 
+/* Editorial Metadata Label (Lando Norris Style) */
+.bento-card-meta {
+  position: absolute;
+  top: 1rem;
+  left: 1.2rem;
+  z-index: 4;
+  font-family: var(--font-main);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.9);
+  background: rgba(11, 11, 11, 0.72);
+  padding: 0.3rem 0.7rem;
+  border-radius: 4px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(8px);
+  pointer-events: none;
+  transition: border-color 0.3s ease, color 0.3s ease;
+}
+
+.bento-card:hover .bento-card-meta {
+  border-color: var(--primary);
+  color: var(--primary);
+}
+
+/* Media Frame Clipping Wrapper for Inner Panning */
+.bento-media-frame {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+  border-radius: inherit;
+}
+
+/* Inner Image Scrub & Zoom */
+.bento-media-img {
+  width: 100%;
+  height: 135%;
+  position: absolute;
+  top: -17.5%;
+  left: 0;
+  object-fit: cover;
+  transition: filter 0.4s ease;
+  will-change: transform;
+}
+
+.bento-card:hover .bento-media-img {
+  filter: brightness(1.1);
+}
+
 /* Scroll Entrance Trigger */
 .bento-section.is-in-view .bento-card {
   opacity: 1;
-  transform: translateY(0) scale(1);
-  transition-delay: calc(var(--card-index, 0) * 0.08s);
-}
-
-/* Antigravity Continuous Floating Animation */
-@keyframes bento-antigravity {
-  0% {
-    transform: translateY(0px);
-  }
-  50% {
-    transform: translateY(-12px);
-  }
-  100% {
-    transform: translateY(0px);
-  }
-}
-
-.bento-section.is-in-view .bento-card.floating-active {
-  animation: bento-antigravity var(--float-duration, 4.5s) ease-in-out infinite var(--float-delay, 0s);
 }
 
 /* Card Hover State */
 .bento-card:hover {
-  animation-play-state: paused !important;
-  transform: translateY(-16px) scale(1.02) !important;
   border-color: var(--primary) !important;
   box-shadow: 0 16px 40px rgba(196, 255, 0, 0.25), 
               0 0 20px rgba(196, 255, 0, 0.15) !important;
   z-index: 10;
 }
 
-/* Card Media (Images & Video) */
-.bento-media-img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), filter 0.4s ease;
-}
-
-.bento-card:hover .bento-media-img {
-  transform: scale(1.08);
-  filter: brightness(1.1);
-}
-
 .bento-overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(to top, rgba(11, 11, 11, 0.88) 0%, rgba(11, 11, 11, 0.2) 60%, transparent 100%);
+  background: linear-gradient(to top, rgba(11, 11, 11, 0.9) 0%, rgba(11, 11, 11, 0.25) 60%, transparent 100%);
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
@@ -1648,6 +1691,65 @@ html.lenis {
 .bento-coming-soon-icon svg {
   width: 32px;
   height: 32px;
+}
+
+/* Editorial Footer & Signature (Lando Norris Signature Element) */
+.gallery-editorial-footer {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1300px;
+  margin: 4rem auto 0;
+  padding-top: 2.5rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.editorial-badge {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 0.6rem 1.2rem;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.flag-badge {
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.badge-text {
+  font-family: var(--font-main);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: var(--text-dim);
+}
+
+.editorial-quote {
+  max-width: 580px;
+  font-family: 'Space Grotesk', var(--font-main);
+  font-size: 1.15rem;
+  line-height: 1.6;
+  color: var(--text-dim);
+  margin: 0;
+  position: relative;
+  text-align: right;
+}
+
+.editorial-signature {
+  display: block;
+  margin-top: 0.5rem;
+  font-family: var(--font-main);
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--primary);
+  letter-spacing: 1px;
 }
 
 .bento-card:hover .bento-coming-soon-icon {
