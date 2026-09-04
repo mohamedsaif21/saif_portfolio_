@@ -187,7 +187,10 @@ if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
     });
 
     window.addEventListener('load', () => {
-        if (typeof ScrollTrigger !== 'undefined') ScrollTrigger.refresh();
+        if (typeof ScrollTrigger !== 'undefined') {
+            ScrollTrigger.sort();
+            ScrollTrigger.refresh();
+        }
     });
 }
 
@@ -423,6 +426,10 @@ if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
                 if (cursorRing) cursorRing.classList.remove('hovered');
             });
         });
+
+        // Ensure triggers are sorted in DOM order so earlier pin-spacers adjust subsequent sections like posters
+        ScrollTrigger.sort();
+        ScrollTrigger.refresh();
     }
 }
 
