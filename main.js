@@ -374,86 +374,46 @@ const animateElements = document.querySelectorAll('.animate-on-scroll, .timeline
 animateElements.forEach(el => scrollObserver.observe(el));
 
 // ==========================================================================
-// LANDO NORRIS EDITORIAL CANVAS LOGIC (GSAP Draggable + Floating Parallax Physics)
+// LANDO NORRIS EDITORIAL GALLERY LOGIC (Dark Olive #22261F Pinned Sequential Track)
 // ==========================================================================
-if (typeof gsap !== 'undefined') {
-    if (typeof Draggable !== 'undefined') {
-        gsap.registerPlugin(Draggable);
-    }
+if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
+    gsap.registerPlugin(ScrollTrigger);
 
-    const galleryPlane = document.querySelector('#galleryPlane');
-    const galleryWrapper = document.querySelector('.gallery-plane-wrapper');
-    const landonorrisCards = document.querySelectorAll('.landonorris-card');
+    const gallery = document.querySelector("#gallery");
+    const track = document.querySelector("#galleryTrack");
+    const cards = gsap.utils.toArray("#galleryTrack .landonorris-card");
 
-    if (galleryPlane && galleryWrapper && landonorrisCards.length) {
-        // Floating Parallax Offsets per Card based on drag/scroll velocity
-        function updateFloatingParallax(planeX, planeY) {
-            landonorrisCards.forEach(card => {
-                const speedX = parseFloat(card.dataset.parallaxX || 1.0);
-                const speedY = parseFloat(card.dataset.parallaxY || 1.0);
+    if (gallery && track && cards.length) {
+        // Total scroll travel equals the track width minus the viewport width
+        const getScrollDistance = () => -(track.scrollWidth - window.innerWidth);
 
-                gsap.to(card, {
-                    x: planeX * (speedX * 0.12),
-                    y: planeY * (speedY * 0.12),
-                    duration: 0.6,
-                    ease: "power2.out",
-                    overwrite: "auto"
-                });
-            });
-        }
+        const tl = gsap.timeline({
+            scrollTrigger: {
+                trigger: gallery,
+                pin: true,
+                scrub: 1,
+                start: "top top",
+                end: () => `+=${track.scrollWidth}`,
+                invalidateOnRefresh: true,
+                anticipatePin: 1
+            }
+        });
 
-        // Initialize GSAP 2D Draggable Plane
-        if (typeof Draggable !== 'undefined') {
-            Draggable.create(galleryPlane, {
-                type: "x,y",
-                edgeResistance: 0.65,
-                inertia: true,
-                cursor: "grab",
-                activeCursor: "grabbing",
-                bounds: galleryWrapper,
-                onDrag: function () {
-                    updateFloatingParallax(this.x, this.y);
-                },
-                onThrowUpdate: function () {
-                    updateFloatingParallax(this.x, this.y);
-                }
-            });
-        }
+        // Base track glide from right to left
+        tl.to(track, {
+            x: getScrollDistance,
+            ease: "none"
+        });
 
-        // Mouse Wheel & Trackpad Panning with Dampened Physics
-        galleryWrapper.addEventListener('wheel', (e) => {
-            e.preventDefault();
-            const deltaX = e.deltaX || 0;
-            const deltaY = e.deltaY || e.deltaX;
+        // Secondary independent velocity & sequential entrance parallax per card
+        cards.forEach((card) => {
+            const speed = parseFloat(card.dataset.speed) || 1;
+            tl.to(card, {
+                x: () => -(120 * speed),
+                ease: "none"
+            }, 0);
 
-            let currentX = gsap.getProperty(galleryPlane, "x") || 0;
-            let currentY = gsap.getProperty(galleryPlane, "y") || 0;
-
-            let targetX = currentX - deltaY * 1.2;
-            let targetY = currentY - deltaX * 0.5;
-
-            // Clamping Bounds
-            const minX = galleryWrapper.clientWidth - galleryPlane.clientWidth;
-            const minY = galleryWrapper.clientHeight - galleryPlane.clientHeight;
-
-            targetX = Math.max(minX, Math.min(0, targetX));
-            targetY = Math.max(minY, Math.min(0, targetY));
-
-            gsap.to(galleryPlane, {
-                x: targetX,
-                y: targetY,
-                duration: 0.8,
-                ease: "power2.out",
-                onUpdate: function () {
-                    const nowX = gsap.getProperty(galleryPlane, "x");
-                    const nowY = gsap.getProperty(galleryPlane, "y");
-                    updateFloatingParallax(nowX, nowY);
-                }
-            });
-        }, { passive: false });
-
-        // Hover Depth Lift Interaction for Sharp Image Cards
-        landonorrisCards.forEach(card => {
+            // Hover cursor effect
             card.addEventListener('mouseenter', () => {
                 if (cursorRing) cursorRing.classList.add('hovered');
             });
