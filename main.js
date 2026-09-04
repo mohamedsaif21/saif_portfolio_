@@ -464,41 +464,6 @@ if (typeof gsap !== 'undefined') {
     }
 }
 
-// Video Play / Pause Toggle Interaction
-if (bentoVideo && bentoPlayBtn) {
-    function updatePlayStateIcon() {
-        if (bentoVideo.paused) {
-            if (playIcon) playIcon.style.display = 'block';
-            if (pauseIcon) pauseIcon.style.display = 'none';
-        } else {
-            if (playIcon) playIcon.style.display = 'none';
-            if (pauseIcon) pauseIcon.style.display = 'block';
-        }
-    }
-
-    function toggleVideoPlay(e) {
-        if (e) e.stopPropagation();
-        if (bentoVideo.paused) {
-            bentoVideo.play().catch(err => console.log('Autoplay constraint:', err));
-        } else {
-            bentoVideo.pause();
-        }
-        updatePlayStateIcon();
-    }
-
-    bentoPlayBtn.addEventListener('click', toggleVideoPlay);
-    if (bentoVideoCard) {
-        bentoVideoCard.addEventListener('click', (e) => {
-            if (!e.target.closest('.bento-play-btn')) {
-                toggleVideoPlay(e);
-            }
-        });
-    }
-
-    bentoVideo.addEventListener('play', updatePlayStateIcon);
-    bentoVideo.addEventListener('pause', updatePlayStateIcon);
-}
-
 // CERTIFICATES INTERACTIVE LOGIC (Row Hover & Lightbox Modal)
 const certRows = document.querySelectorAll('.certificate-row');
 const certPreview = document.querySelector('.cert-floating-preview');
