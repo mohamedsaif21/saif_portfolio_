@@ -110,9 +110,8 @@ if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
 
         // Posters horizontal scroll
         if (postersSection && postersWrapper) {
-            const maxScroll = postersWrapper.scrollWidth - window.innerWidth;
             gsap.to(postersWrapper, {
-                x: -maxScroll,
+                x: () => -(postersWrapper.scrollWidth - window.innerWidth),
                 ease: 'none',
                 scrollTrigger: {
                     trigger: postersSection,
@@ -186,6 +185,8 @@ if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
             const parallaxElements = document.querySelectorAll('.parallax-element');
             parallaxElements.forEach(el => el.style.transform = '');
         };
+    window.addEventListener('load', () => {
+        if (typeof ScrollTrigger !== 'undefined') ScrollTrigger.refresh();
     });
 }
 

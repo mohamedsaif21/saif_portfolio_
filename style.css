@@ -822,6 +822,10 @@ a {
 }
 
 /* Poster Cards */
+.posters-wrapper {
+  width: max-content !important;
+}
+
 .poster-intro {
   display: flex;
   flex-direction: column;
@@ -829,7 +833,6 @@ a {
   align-items: center;
   text-align: center;
   transform-origin: center center;
-  transition: transform 0.05s ease-out;
 }
 
 .poster-intro h2 {
