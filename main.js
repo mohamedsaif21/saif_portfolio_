@@ -94,9 +94,8 @@ if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
     mm.add("(min-width: 769px)", () => {
         // Hero horizontal scroll
         if (heroSection && heroWrapper) {
-            const maxScroll = heroWrapper.scrollWidth - window.innerWidth;
             gsap.to(heroWrapper, {
-                x: -maxScroll,
+                x: () => -(heroWrapper.scrollWidth - window.innerWidth),
                 ease: 'none',
                 scrollTrigger: {
                     trigger: heroSection,

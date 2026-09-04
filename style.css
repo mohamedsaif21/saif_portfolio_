@@ -16,13 +16,18 @@
 
 html {
   scroll-behavior: smooth;
+  overflow-x: clip;
+}
+
+html.lenis {
+  scroll-behavior: auto !important;
 }
 
 body {
   background-color: var(--bg);
   color: var(--text);
   font-family: var(--font-body);
-  overflow-x: hidden;
+  overflow-x: clip;
 }
 
 h1,
@@ -233,7 +238,8 @@ a {
 .horizontal-section-container {
   position: relative;
   height: 400vh;
-  overflow: hidden;
+  overflow-x: clip;
+  overflow-y: visible;
 }
 
 .horizontal-wrapper {
