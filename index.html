@@ -120,161 +120,122 @@
     </div>
   </section>
 
-  <!-- SECTION: BENTO GALLERY (Visual Break & Editorial Gallery) -->
-  <section id="gallery" class="bento-section">
-    <!-- Topographic Contour Map Background (Lando Norris Style) -->
-    <div class="gallery-topographic-canvas" aria-hidden="true">
-      <svg viewBox="0 0 1440 900" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
-        <path d="M-100 200 C300 50, 700 350, 1100 150 C1300 50, 1500 250, 1600 400" stroke="currentColor" stroke-width="1.2" stroke-dasharray="4 4"/>
-        <path d="M-50 350 C250 180, 600 500, 950 280 C1250 120, 1450 380, 1550 550" stroke="currentColor" stroke-width="1.5"/>
-        <path d="M-150 500 C150 320, 500 620, 850 420 C1180 220, 1380 500, 1500 700" stroke="currentColor" stroke-width="1"/>
-        <path d="M-80 650 C220 480, 580 750, 920 560 C1220 370, 1420 620, 1580 820" stroke="currentColor" stroke-width="1.2" stroke-dasharray="6 3"/>
-        <path d="M-120 800 C180 600, 520 880, 880 680 C1150 500, 1350 780, 1520 950" stroke="currentColor" stroke-width="1.4"/>
-        <path d="M200 -50 C450 200, 350 550, 650 750 C850 900, 1100 800, 1300 1000" stroke="currentColor" stroke-width="1"/>
-        <path d="M400 -80 C650 150, 550 480, 850 680 C1050 820, 1250 750, 1450 920" stroke="currentColor" stroke-width="1.3"/>
+  <!-- SECTION: LANDO NORRIS EDITORIAL GALLERY (Off-White Draggable Floating Canvas) -->
+  <section id="gallery" class="landonorris-gallery-section">
+    <!-- Inline SVG Contour Lines (Light Dark Lines on Off-White #EBEAE5) -->
+    <div class="contour-lines-bg" aria-hidden="true">
+      <svg viewBox="0 0 1600 1000" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+        <path d="M-100 180 C300 40, 700 320, 1100 120 C1350 20, 1550 220, 1700 380" stroke="rgba(0, 0, 0, 0.14)" stroke-width="1.2" stroke-dasharray="4 4"/>
+        <path d="M-50 320 C250 160, 600 460, 950 260 C1250 100, 1480 350, 1650 520" stroke="rgba(0, 0, 0, 0.14)" stroke-width="1.5"/>
+        <path d="M-150 480 C150 290, 500 580, 850 390 C1180 190, 1400 460, 1600 680" stroke="rgba(0, 0, 0, 0.14)" stroke-width="1"/>
+        <path d="M-80 620 C220 450, 580 720, 920 540 C1220 350, 1450 580, 1680 790" stroke="rgba(0, 0, 0, 0.14)" stroke-width="1.2" stroke-dasharray="6 3"/>
+        <path d="M-120 780 C180 570, 520 840, 880 650 C1150 470, 1380 740, 1620 920" stroke="rgba(0, 0, 0, 0.14)" stroke-width="1.4"/>
+        <path d="M180 -50 C430 180, 330 520, 630 720 C830 870, 1080 780, 1280 980" stroke="rgba(0, 0, 0, 0.14)" stroke-width="1"/>
+        <path d="M380 -80 C630 130, 530 450, 830 650 C1030 790, 1230 720, 1430 890" stroke="rgba(0, 0, 0, 0.14)" stroke-width="1.3"/>
       </svg>
     </div>
 
-    <div class="content-wrapper">
-      <div class="bento-header text-center">
-        <span class="bento-badge">EDITORIAL GALLERY</span>
-        <h2 class="bento-title">CREATIVE SHOWCASE</h2>
-        <p class="bento-subtitle">A curated snapshot of design experiments, hackathon builds, and motion graphics.</p>
+    <!-- Editorial Header Hint -->
+    <div class="landonorris-header">
+      <div class="landonorris-badge-row">
+        <span class="landonorris-badge">EDITORIAL GALLERY</span>
+        <span class="landonorris-drag-hint">DRAG / SCROLL TO EXPLORE PLANE</span>
       </div>
+    </div>
 
-      <div class="bento-grid">
-        <!-- Card 1: Top-Left (1x1) -->
-        <div class="bento-card bento-card-1" data-speed="0.12" style="--card-index: 1;">
-          <div class="bento-card-meta">ODFE POS, 2026</div>
-          <div class="bento-media-frame">
-            <img src="./Assest/dashboard.png" alt="ODFE SaaS Dashboard" class="bento-media-img" loading="lazy">
-          </div>
-          <div class="bento-overlay">
-            <span class="bento-tag">UI/UX & SaaS</span>
-            <h3 class="bento-card-title">ODFE POS Platform</h3>
+    <!-- 2D Draggable Plane Container (240vw x 120vh) -->
+    <div class="gallery-plane-wrapper">
+      <div class="gallery-plane" id="galleryPlane">
+        
+        <!-- Card 1: BRITAIN, 2025 (Square 1:1) -->
+        <div class="landonorris-card card-pos-1" data-speed="0.12" data-parallax-x="1.1" data-parallax-y="0.9">
+          <span class="landonorris-meta">BRITAIN, 2025</span>
+          <div class="landonorris-frame">
+            <img src="./Assest/dashboard.png" alt="ODFE POS Platform" class="landonorris-img" loading="lazy">
           </div>
         </div>
 
-        <!-- Card 2: Top-Center (2x1 wide) -->
-        <div class="bento-card bento-card-2" data-speed="-0.08" style="--card-index: 2;">
-          <div class="bento-card-meta">AI LAB, 2025</div>
-          <div class="bento-media-frame">
-            <img src="./Assest/livekit.png" alt="Ruhi AI Assistant" class="bento-media-img" loading="lazy">
-          </div>
-          <div class="bento-overlay">
-            <span class="bento-tag">AI Engineering</span>
-            <h3 class="bento-card-title">RUHI - Voice Assistant</h3>
+        <!-- Card 2: HIGH PERFORMANCE GALA, 2024 (Tall Portrait 4:5) -->
+        <div class="landonorris-card card-pos-2" data-speed="-0.1" data-parallax-x="-0.8" data-parallax-y="1.2">
+          <span class="landonorris-meta">HIGH PERFORMANCE GALA, 2024</span>
+          <div class="landonorris-frame">
+            <img src="./Assest/livekit.png" alt="RUHI Voice Assistant" class="landonorris-img" loading="lazy">
           </div>
         </div>
 
-        <!-- Card 3: Top-Right (1x1) -->
-        <div class="bento-card bento-card-3" data-speed="0.18" style="--card-index: 3;">
-          <div class="bento-card-meta">CREATOR, 2026</div>
-          <div class="bento-media-frame">
-            <img src="./Assest/saif.jpeg" alt="Mohamed Saif" class="bento-media-img" loading="lazy">
-          </div>
-          <div class="bento-overlay">
-            <span class="bento-tag">Developer</span>
-            <h3 class="bento-card-title">Mohamed Saif</h3>
+        <!-- Card 3: BARCELONA, 2024 (Large Hero Photo) -->
+        <div class="landonorris-card card-pos-3" data-speed="0.18" data-parallax-x="1.4" data-parallax-y="-0.7">
+          <span class="landonorris-meta">BARCELONA, 2024</span>
+          <div class="landonorris-frame">
+            <img src="./Assest/saif.jpeg" alt="Mohamed Saif" class="landonorris-img" loading="lazy">
           </div>
         </div>
 
-        <!-- Card 4: Middle-Left (1x2 tall) -->
-        <div class="bento-card bento-card-4" data-speed="-0.14" style="--card-index: 4;">
-          <div class="bento-card-meta">GRAPHIC ART, 2025</div>
-          <div class="bento-media-frame">
-            <img src="./Assest/img.png" alt="Graphic Design Artwork" class="bento-media-img" loading="lazy">
-          </div>
-          <div class="bento-overlay">
-            <span class="bento-tag">Visual Art</span>
-            <h3 class="bento-card-title">Graphic Design Poster</h3>
+        <!-- Card 4: BATTERSEA, 2024 (Portrait Photo) -->
+        <div class="landonorris-card card-pos-4" data-speed="-0.15" data-parallax-x="-1.2" data-parallax-y="-1.0">
+          <span class="landonorris-meta">BATTERSEA, 2024</span>
+          <div class="landonorris-frame">
+            <img src="./Assest/img.png" alt="Graphic Design Poster" class="landonorris-img" loading="lazy">
           </div>
         </div>
 
-        <!-- CENTER SHOWCASE CARD: Exact Center (2x2) -->
-        <div class="bento-card bento-showcase-card" data-speed="0.05" style="--card-index: 5;">
-          <div class="bento-card-meta">FEATURED SHOWCASE, 2026</div>
-          <div class="bento-media-frame">
-            <img src="./Assest/Hand2voice.jpeg" alt="Showcase Reel" class="bento-media-img" loading="lazy">
-          </div>
-          <div class="bento-showcase-overlay">
-            <div class="showcase-badge">
-              <span class="pulse-dot"></span>
-              <span>COMING SOON</span>
-            </div>
-            <div class="bento-coming-soon-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                <polygon points="23 7 16 12 23 17 23 7"></polygon>
-                <rect x="1" y="5" width="15" height="14" rx="2" ry="2"></rect>
-              </svg>
-            </div>
-            <div class="showcase-info">
-              <span class="bento-tag">FEATURED REEL</span>
-              <h3 class="bento-card-title">Motion & Interactive Showcase</h3>
-              <p class="bento-showcase-desc">Video reel coming soon — stay tuned!</p>
-            </div>
+        <!-- Card 5: US, 2024 (Center Hero Feature) -->
+        <div class="landonorris-card card-pos-5" data-speed="0.08" data-parallax-x="0.6" data-parallax-y="0.5">
+          <span class="landonorris-meta">US, 2024</span>
+          <div class="landonorris-frame">
+            <img src="./Assest/Hand2voice.jpeg" alt="Hand2Voices Reel" class="landonorris-img" loading="lazy">
           </div>
         </div>
 
-        <!-- Card 5: Middle-Right Top (1x1) -->
-        <div class="bento-card bento-card-5" data-speed="0.22" style="--card-index: 6;">
-          <div class="bento-card-meta">HACKATHON, 2025</div>
-          <div class="bento-media-frame">
-            <img src="./Assest/hand2voice app.png" alt="Hand2Voices App" class="bento-media-img" loading="lazy">
-          </div>
-          <div class="bento-overlay">
-            <span class="bento-tag">Hackathon Winner</span>
-            <h3 class="bento-card-title">Hand2Voices App</h3>
+        <!-- Card 6: SINGAPORE, 2025 (Wide 16:9 Landscape) -->
+        <div class="landonorris-card card-pos-6" data-speed="0.2" data-parallax-x="1.5" data-parallax-y="-1.3">
+          <span class="landonorris-meta">SINGAPORE, 2025</span>
+          <div class="landonorris-frame">
+            <img src="./Assest/hand2voice app.png" alt="Hand2Voices App" class="landonorris-img" loading="lazy">
           </div>
         </div>
 
-        <!-- Card 6: Middle-Right Bottom (1x1) -->
-        <div class="bento-card bento-card-6" data-speed="-0.1" style="--card-index: 7;">
-          <div class="bento-card-meta">BRANDING, 2025</div>
-          <div class="bento-media-frame">
-            <img src="./Assest/img3.png" alt="Brand Design" class="bento-media-img" loading="lazy">
-          </div>
-          <div class="bento-overlay">
-            <span class="bento-tag">Brand & Layout</span>
-            <h3 class="bento-card-title">Typography & Poster</h3>
+        <!-- Card 7: MONACO, 2025 (Square Photo) -->
+        <div class="landonorris-card card-pos-7" data-speed="-0.12" data-parallax-x="-0.9" data-parallax-y="1.1">
+          <span class="landonorris-meta">MONACO, 2025</span>
+          <div class="landonorris-frame">
+            <img src="./Assest/img3.png" alt="Typography Poster" class="landonorris-img" loading="lazy">
           </div>
         </div>
 
-        <!-- Card 7: Bottom-Left (2x1 wide) -->
-        <div class="bento-card bento-card-7" data-speed="0.15" style="--card-index: 8;">
-          <div class="bento-card-meta">CAREER TECH, 2025</div>
-          <div class="bento-media-frame">
-            <img src="./Assest/Resucraft AI.png" alt="ResuCraft AI" class="bento-media-img" loading="lazy">
-          </div>
-          <div class="bento-overlay">
-            <span class="bento-tag">AI Career Platform</span>
-            <h3 class="bento-card-title">ResuCraft AI Co-Pilot</h3>
+        <!-- Card 8: ABU DHABI, 2025 (Wide Landscape) -->
+        <div class="landonorris-card card-pos-8" data-speed="0.14" data-parallax-x="1.0" data-parallax-y="1.4">
+          <span class="landonorris-meta">ABU DHABI, 2025</span>
+          <div class="landonorris-frame">
+            <img src="./Assest/Resucraft AI.png" alt="ResuCraft AI" class="landonorris-img" loading="lazy">
           </div>
         </div>
 
-        <!-- Card 8: Bottom-Right (2x1 wide) -->
-        <div class="bento-card bento-card-8" data-speed="-0.16" style="--card-index: 9;">
-          <div class="bento-card-meta">POSTER LAB, 2025</div>
-          <div class="bento-media-frame">
-            <img src="./Assest/img4.png" alt="Creative Posters" class="bento-media-img" loading="lazy">
-          </div>
-          <div class="bento-overlay">
-            <span class="bento-tag">Visual Identity</span>
-            <h3 class="bento-card-title">Experimental Design</h3>
+        <!-- Card 9: AUSTIN, 2024 (Tall Portrait) -->
+        <div class="landonorris-card card-pos-9" data-speed="-0.18" data-parallax-x="-1.4" data-parallax-y="-0.8">
+          <span class="landonorris-meta">AUSTIN, 2024</span>
+          <div class="landonorris-frame">
+            <img src="./Assest/img4.png" alt="Experimental Design" class="landonorris-img" loading="lazy">
           </div>
         </div>
-      </div>
 
-      <!-- Editorial Quote & Badge (Lando Norris Signature Element) -->
-      <div class="gallery-editorial-footer">
-        <div class="editorial-badge">
-          <span class="flag-badge">1 🏁</span>
-          <span class="badge-text">SELECTION</span>
+        <!-- Editorial Quote Accent in Negative Space (Matching Lando Norris Image 1) -->
+        <div class="landonorris-editorial-accent">
+          <p class="landonorris-serif-quote">
+            "Since I was 7 years old and had my first experience with kart racing, I've worked tirelessly to make that dream come true."
+          </p>
+          <div class="landonorris-signature-wrap">
+            <svg class="landonorris-signature-svg" viewBox="0 0 160 40" fill="none" stroke="#111111" stroke-width="1.8">
+              <path d="M10,25 C30,5 45,35 60,15 C75,-5 90,30 110,20 C130,10 145,25 155,20" />
+            </svg>
+          </div>
         </div>
-        <blockquote class="editorial-quote">
-          "Driven by curiosity, crafting seamless visual experiences that blend design with code."
-          <span class="editorial-signature">Mohamed Saif</span>
-        </blockquote>
+
+        <!-- Editorial Badge Accent -->
+        <div class="landonorris-badge-accent">
+          <span class="flag-icon">1 🏁</span>
+        </div>
+
       </div>
     </div>
   </section>
