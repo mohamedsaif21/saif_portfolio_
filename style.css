@@ -1540,25 +1540,35 @@ html.lenis {
   pointer-events: none;
 }
 
-/* Aspect Ratio Classes */
-.ratio-portrait-tall {
-  aspect-ratio: 4 / 5;
+/* Aspect Ratio Classes (matched to each media's native ratio so nothing crops) */
+.ratio-0-674 {
+  aspect-ratio: 920 / 1364;
   width: clamp(240px, 22vw, 320px);
 }
 
-.ratio-portrait-regular {
-  aspect-ratio: 3 / 4;
-  width: clamp(210px, 18vw, 270px);
+.ratio-1-772 {
+  aspect-ratio: 1276 / 720;
+  width: clamp(300px, 28vw, 390px);
 }
 
-.ratio-square-small {
-  aspect-ratio: 1 / 1;
+.ratio-1-589 {
+  aspect-ratio: 1462 / 920;
+  width: clamp(240px, 22vw, 320px);
+}
+
+.ratio-1-387 {
+  aspect-ratio: 1600 / 1154;
   width: clamp(160px, 14vw, 200px);
 }
 
-.ratio-hero {
-  aspect-ratio: 4 / 5;
-  width: clamp(300px, 28vw, 390px);
+.ratio-0-693 {
+  aspect-ratio: 1108 / 1600;
+  width: clamp(210px, 18vw, 270px);
+}
+
+.ratio-0-758 {
+  aspect-ratio: 1212 / 1600;
+  width: clamp(240px, 22vw, 320px);
 }
 
 /* Alternating Up/Down Staggered Wave Classes */
