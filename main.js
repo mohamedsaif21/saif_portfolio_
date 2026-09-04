@@ -452,16 +452,33 @@ if (bentoSection && bentoCards.length) {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 bentoSection.classList.add('is-in-view');
-                // Activate continuous antigravity float after staggered entrance completes
-                setTimeout(() => {
-                    bentoCards.forEach(card => card.classList.add('floating-active'));
-                }, 1200);
                 bentoObserver.unobserve(entry.target);
             }
         });
     }, { threshold: 0.15 });
 
     bentoObserver.observe(bentoSection);
+
+    // 3D Tilt Hover Effect for Desktop Cards
+    if (window.innerWidth > 768) {
+        bentoCards.forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+                const rotateX = ((y - centerY) / centerY) * -6;
+                const rotateY = ((x - centerX) / centerX) * 6;
+
+                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-8px) scale(1.02)`;
+            });
+
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = '';
+            });
+        });
+    }
 }
 
 // Video Play / Pause Toggle Interaction
