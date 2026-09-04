@@ -161,69 +161,6 @@ if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
             );
         });
 
-        // Lando Norris Inspired Editorial Bento Gallery Multi-Speed Scroll & Inner Image Scrub
-        const gallerySec = document.querySelector('.bento-section');
-        const bentoGridCards = document.querySelectorAll('.bento-card');
-        const topoCanvasSvg = document.querySelector('.gallery-topographic-canvas svg');
-
-        if (gallerySec && bentoGridCards.length) {
-            // 1. Topographic background subtle drift
-            if (topoCanvasSvg) {
-                gsap.fromTo(topoCanvasSvg,
-                    { yPercent: -8, scale: 1 },
-                    {
-                        yPercent: 8,
-                        scale: 1.06,
-                        ease: 'none',
-                        scrollTrigger: {
-                            trigger: gallerySec,
-                            start: 'top bottom',
-                            end: 'bottom top',
-                            scrub: 1.2
-                        }
-                    }
-                );
-            }
-
-            // 2. Multi-speed floating parallax & inner image scrub per card
-            bentoGridCards.forEach(card => {
-                const speed = parseFloat(card.dataset.speed || 0.1);
-                const innerImg = card.querySelector('.bento-media-img');
-
-                // Card vertical drift parallax
-                gsap.fromTo(card,
-                    { y: -140 * speed },
-                    {
-                        y: 140 * speed,
-                        ease: 'none',
-                        scrollTrigger: {
-                            trigger: gallerySec,
-                            start: 'top bottom',
-                            end: 'bottom top',
-                            scrub: 1
-                        }
-                    }
-                );
-
-                // Inner image window scrub effect (Lando Norris style image panning inside container)
-                if (innerImg) {
-                    gsap.fromTo(innerImg,
-                        { yPercent: -15, scale: 1.18 },
-                        {
-                            yPercent: 15,
-                            scale: 1.04,
-                            ease: 'none',
-                            scrollTrigger: {
-                                trigger: card,
-                                start: 'top bottom',
-                                end: 'bottom top',
-                                scrub: 0.8
-                            }
-                        }
-                    );
-                }
-            });
-        }
     });
 
     // Mobile viewport matching (max-width: 768px)
@@ -437,45 +374,91 @@ const animateElements = document.querySelectorAll('.animate-on-scroll, .timeline
 animateElements.forEach(el => scrollObserver.observe(el));
 
 // ==========================================================================
-// BENTO GRID GALLERY LOGIC (Scroll Reveal, Antigravity Float, & Video Controls)
+// LANDO NORRIS EDITORIAL CANVAS LOGIC (GSAP Draggable + Floating Parallax Physics)
 // ==========================================================================
-const bentoSection = document.querySelector('.bento-section');
-const bentoCards = document.querySelectorAll('.bento-card');
-const bentoVideoCard = document.querySelector('.bento-video-card');
-const bentoVideo = document.querySelector('.bento-video');
-const bentoPlayBtn = document.querySelector('.bento-play-btn');
-const playIcon = bentoPlayBtn ? bentoPlayBtn.querySelector('.play-icon') : null;
-const pauseIcon = bentoPlayBtn ? bentoPlayBtn.querySelector('.pause-icon') : null;
+if (typeof gsap !== 'undefined') {
+    if (typeof Draggable !== 'undefined') {
+        gsap.registerPlugin(Draggable);
+    }
 
-if (bentoSection && bentoCards.length) {
-    const bentoObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                bentoSection.classList.add('is-in-view');
-                bentoObserver.unobserve(entry.target);
-            }
-        });
-    }, { threshold: 0.15 });
+    const galleryPlane = document.querySelector('#galleryPlane');
+    const galleryWrapper = document.querySelector('.gallery-plane-wrapper');
+    const landonorrisCards = document.querySelectorAll('.landonorris-card');
 
-    bentoObserver.observe(bentoSection);
+    if (galleryPlane && galleryWrapper && landonorrisCards.length) {
+        // Floating Parallax Offsets per Card based on drag/scroll velocity
+        function updateFloatingParallax(planeX, planeY) {
+            landonorrisCards.forEach(card => {
+                const speedX = parseFloat(card.dataset.parallaxX || 1.0);
+                const speedY = parseFloat(card.dataset.parallaxY || 1.0);
 
-    // 3D Tilt Hover Effect for Desktop Cards
-    if (window.innerWidth > 768) {
-        bentoCards.forEach(card => {
-            card.addEventListener('mousemove', (e) => {
-                const rect = card.getBoundingClientRect();
-                const x = e.clientX - rect.left;
-                const y = e.clientY - rect.top;
-                const centerX = rect.width / 2;
-                const centerY = rect.height / 2;
-                const rotateX = ((y - centerY) / centerY) * -6;
-                const rotateY = ((x - centerX) / centerX) * 6;
-
-                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-8px) scale(1.02)`;
+                gsap.to(card, {
+                    x: planeX * (speedX * 0.12),
+                    y: planeY * (speedY * 0.12),
+                    duration: 0.6,
+                    ease: "power2.out",
+                    overwrite: "auto"
+                });
             });
+        }
 
+        // Initialize GSAP 2D Draggable Plane
+        if (typeof Draggable !== 'undefined') {
+            Draggable.create(galleryPlane, {
+                type: "x,y",
+                edgeResistance: 0.65,
+                inertia: true,
+                cursor: "grab",
+                activeCursor: "grabbing",
+                bounds: galleryWrapper,
+                onDrag: function () {
+                    updateFloatingParallax(this.x, this.y);
+                },
+                onThrowUpdate: function () {
+                    updateFloatingParallax(this.x, this.y);
+                }
+            });
+        }
+
+        // Mouse Wheel & Trackpad Panning with Dampened Physics
+        galleryWrapper.addEventListener('wheel', (e) => {
+            e.preventDefault();
+            const deltaX = e.deltaX || 0;
+            const deltaY = e.deltaY || e.deltaX;
+
+            let currentX = gsap.getProperty(galleryPlane, "x") || 0;
+            let currentY = gsap.getProperty(galleryPlane, "y") || 0;
+
+            let targetX = currentX - deltaY * 1.2;
+            let targetY = currentY - deltaX * 0.5;
+
+            // Clamping Bounds
+            const minX = galleryWrapper.clientWidth - galleryPlane.clientWidth;
+            const minY = galleryWrapper.clientHeight - galleryPlane.clientHeight;
+
+            targetX = Math.max(minX, Math.min(0, targetX));
+            targetY = Math.max(minY, Math.min(0, targetY));
+
+            gsap.to(galleryPlane, {
+                x: targetX,
+                y: targetY,
+                duration: 0.8,
+                ease: "power2.out",
+                onUpdate: function () {
+                    const nowX = gsap.getProperty(galleryPlane, "x");
+                    const nowY = gsap.getProperty(galleryPlane, "y");
+                    updateFloatingParallax(nowX, nowY);
+                }
+            });
+        }, { passive: false });
+
+        // Hover Depth Lift Interaction for Sharp Image Cards
+        landonorrisCards.forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                if (cursorRing) cursorRing.classList.add('hovered');
+            });
             card.addEventListener('mouseleave', () => {
-                card.style.transform = '';
+                if (cursorRing) cursorRing.classList.remove('hovered');
             });
         });
     }
