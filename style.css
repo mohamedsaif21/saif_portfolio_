@@ -626,24 +626,30 @@ a {
   padding: 10vh 5vw;
 }
 
-.tech-grid {
+.tech-grid,
+.skills-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   gap: 1rem;
   margin-top: 3rem;
   justify-items: center;
   align-items: center;
+  contain: layout; /* Tells the browser this container won't affect the rest of the page layout (Prevents Layout Thrashing) */
 }
 
-.tech-item {
+.tech-item,
+.skill-card {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   padding: 1.5rem;
+  contain: layout style;
+  will-change: transform, opacity; /* Pre-optimizes the GPU for GSAP movements */
 }
 
-.tech-item img {
+.tech-item img,
+.skill-card img {
   width: 100%;
   max-width: 120px;
   height: auto;
@@ -688,6 +694,7 @@ a {
   overflow: hidden;
   transition: border-color 0.4s, transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.4s;
   backdrop-filter: blur(12px);
+  contain: layout; /* Prevents card size changes from thrashing global document layout */
 }
 
 .project-card:hover {
@@ -701,6 +708,7 @@ a {
   opacity: 0;
   transform: translateX(-50px);
   transition: opacity 0.8s ease, transform 0.8s ease;
+  will-change: transform, opacity; /* Pre-optimizes GPU for scroll reveals */
 }
 
 .project-info.visible {
@@ -766,6 +774,54 @@ a {
   transform: scale(1.15);
   border-color: rgba(196, 255, 0, 0.6);
   box-shadow: 0 0 14px rgba(196, 255, 0, 0.15);
+}
+
+/* POS Workflow Structured Flow (Eliminates text reflow layout thrashing) */
+.project-desc {
+  font-size: 1rem;
+  color: #e0e0e0;
+  margin-top: 0.5rem;
+}
+
+.pos-workflow-flow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 8px;
+  margin: 0.85rem 0;
+  padding: 0.85rem 1rem;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  contain: layout; /* Tells the browser this container won't affect the rest of the page layout */
+  font-size: 0.85rem;
+  line-height: 1.4;
+  color: #d1d5db;
+}
+
+.pos-workflow-flow .step-pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 9px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 6px;
+  white-space: nowrap;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: #fff;
+}
+
+.pos-workflow-flow .flow-arrow {
+  color: var(--primary, #c4ff00);
+  font-weight: 700;
+  user-select: none;
+}
+
+.project-summary {
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.7);
+  margin-top: 0.3rem;
 }
 
 .project-image {
