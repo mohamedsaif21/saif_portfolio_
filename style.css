@@ -1132,31 +1132,85 @@ a {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 0.8rem;
+  margin-top: 1.2rem;
+  cursor: pointer;
+  position: relative;
+  user-select: none;
+  transition: transform 0.3s ease;
+}
+
+.signature-badge {
+  font-size: 0.72rem;
+  letter-spacing: 1.6px;
+  text-transform: uppercase;
+  color: var(--primary);
+  opacity: 0.75;
+  margin-bottom: 0.3rem;
+  font-family: var(--font-main);
 }
 
 .signature-svg {
-  width: 260px;
-  height: 75px;
+  width: 320px;
+  height: 110px;
+  overflow: visible;
+  filter: drop-shadow(0 0 14px rgba(196, 255, 0, 0.25));
+  transition: transform 0.3s ease, filter 0.3s ease;
 }
 
-.signature-path {
-  stroke-dasharray: 1000;
-  stroke-dashoffset: 1000;
-  transition: stroke-dashoffset 2.5s cubic-bezier(0.4, 0, 0.2, 1);
+.signature-container:hover .signature-svg {
+  transform: scale(1.03);
+  filter: drop-shadow(0 0 22px rgba(196, 255, 0, 0.45));
 }
 
-.signature-container.animate .signature-path {
-  stroke-dashoffset: 0;
+.signature-stroke {
+  will-change: stroke-dashoffset, transform;
+}
+
+.signature-footer-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.85rem;
+  margin-top: 0.5rem;
+  flex-wrap: wrap;
 }
 
 .signature-sub {
-  font-size: 0.8rem;
+  font-size: 0.82rem;
   letter-spacing: 1.5px;
   text-transform: uppercase;
   color: var(--text-dim);
-  margin-top: 0.3rem;
   opacity: 0.85;
+}
+
+.signature-replay-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.25rem 0.65rem;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 999px;
+  color: var(--primary);
+  font-size: 0.72rem;
+  font-family: var(--font-main);
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.signature-replay-btn:hover {
+  background: rgba(196, 255, 0, 0.12);
+  border-color: var(--primary);
+  transform: scale(1.05);
+}
+
+.signature-replay-btn svg {
+  transition: transform 0.4s ease;
+}
+
+.signature-replay-btn:hover svg {
+  transform: rotate(-180deg);
 }
 
 /* 6. Minimalist Editorial Footer Bar */
@@ -1288,8 +1342,8 @@ a {
   }
 
   .signature-svg {
-    width: 190px;
-    height: 55px;
+    width: 250px;
+    height: 85px;
   }
 }
 

@@ -356,22 +356,173 @@ function setupTextReveal() {
 }
 setupTextReveal();
 
-// SIGNATURE DRAWING OBSERVER
-const observerOptions = {
-    threshold: 0.2
-};
+// SIGNATURE DRAWING ANIMATION (GSAP Timeline + Dynamic Lengths + Replay)
+function initSignatureAnimation() {
+    const container = document.querySelector('#signatureContainer');
+    const pathM = document.querySelector('.sig-stroke-m');
+    const dot1 = document.querySelector('.sig-stroke-dot1');
+    const pathSaif = document.querySelector('.sig-stroke-saif');
+    const dot2 = document.querySelector('.sig-stroke-dot2');
+    const pathFlourish = document.querySelector('.sig-stroke-flourish');
+    const replayBtn = document.querySelector('#sigReplayBtn');
 
-const signatureObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            entry.target.classList.add('animate');
-            signatureObserver.unobserve(entry.target);
-        }
+    if (!container || !pathM || !pathSaif || !pathFlourish) return;
+
+    const strokePaths = [pathM, pathSaif, pathFlourish];
+
+    // Compute pixel-exact path lengths so strokeDashoffset starts with zero delay
+    strokePaths.forEach(path => {
+        const len = Math.ceil(path.getTotalLength());
+        path.style.strokeDasharray = `${len} ${len}`;
+        path.style.strokeDashoffset = `${len}`;
     });
-}, observerOptions);
 
-const sigContainer = document.querySelector('.signature-container');
-if (sigContainer) signatureObserver.observe(sigContainer);
+    if (dot1) {
+        dot1.style.transform = 'scale(0)';
+        dot1.style.transformOrigin = '112px 68px';
+    }
+    if (dot2) {
+        dot2.style.transform = 'scale(0)';
+        dot2.style.transformOrigin = '196px 34px';
+    }
+
+    let isPlaying = false;
+    let hasPlayed = false;
+
+    function playSignature() {
+        if (isPlaying) return;
+        isPlaying = true;
+
+        if (typeof playUISound === 'function' && !isAudioMuted) {
+            playUISound(650, 0.05, 'sine');
+        }
+
+        // Reset to beginning
+        strokePaths.forEach(path => {
+            const len = Math.ceil(path.getTotalLength());
+            path.style.transition = 'none';
+            path.style.strokeDashoffset = `${len}`;
+        });
+        if (dot1) {
+            dot1.style.transition = 'none';
+            dot1.style.transform = 'scale(0)';
+        }
+        if (dot2) {
+            dot2.style.transition = 'none';
+            dot2.style.transform = 'scale(0)';
+        }
+
+        // Use GSAP timeline for smooth calligraphy curve drawing
+        if (typeof gsap !== 'undefined') {
+            const tl = gsap.timeline({
+                onComplete: () => {
+                    isPlaying = false;
+                    hasPlayed = true;
+                    container.classList.add('animate');
+                }
+            });
+
+            // 1. Draw M stroke
+            tl.to(pathM, {
+                strokeDashoffset: 0,
+                duration: 0.7,
+                ease: 'power1.inOut'
+            })
+            // 2. Pop dot after M
+            .to(dot1, {
+                scale: 1,
+                duration: 0.12,
+                ease: 'back.out(2)'
+            }, '-=0.05')
+            // 3. Draw Saif cursive stroke
+            .to(pathSaif, {
+                strokeDashoffset: 0,
+                duration: 1.1,
+                ease: 'power1.inOut'
+            }, '+=0.04')
+            // 4. Pop dot on i
+            .to(dot2, {
+                scale: 1,
+                duration: 0.12,
+                ease: 'back.out(2)'
+            }, '-=0.05')
+            // 5. Draw sweeping flourish underline
+            .to(pathFlourish, {
+                strokeDashoffset: 0,
+                duration: 0.65,
+                ease: 'power2.out'
+            }, '+=0.04');
+
+        } else {
+            // CSS Fallback
+            container.classList.add('animate');
+            pathM.style.transition = 'stroke-dashoffset 0.7s ease-in-out';
+            pathM.style.strokeDashoffset = '0';
+
+            setTimeout(() => {
+                if (dot1) {
+                    dot1.style.transition = 'transform 0.15s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
+                    dot1.style.transform = 'scale(1)';
+                }
+            }, 680);
+
+            setTimeout(() => {
+                pathSaif.style.transition = 'stroke-dashoffset 1.1s ease-in-out';
+                pathSaif.style.strokeDashoffset = '0';
+            }, 820);
+
+            setTimeout(() => {
+                if (dot2) {
+                    dot2.style.transition = 'transform 0.15s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
+                    dot2.style.transform = 'scale(1)';
+                }
+            }, 1900);
+
+            setTimeout(() => {
+                pathFlourish.style.transition = 'stroke-dashoffset 0.65s ease-out';
+                pathFlourish.style.strokeDashoffset = '0';
+                isPlaying = false;
+                hasPlayed = true;
+            }, 2050);
+        }
+    }
+
+    // Trigger on scroll via ScrollTrigger
+    if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
+        ScrollTrigger.create({
+            trigger: container,
+            start: 'top 88%',
+            once: true,
+            onEnter: () => {
+                if (!hasPlayed) playSignature();
+            }
+        });
+    }
+
+    // IntersectionObserver fallback
+    const signatureObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting && !hasPlayed) {
+                playSignature();
+                signatureObserver.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.15 });
+    signatureObserver.observe(container);
+
+    // Interactive Click Replay
+    container.addEventListener('click', () => {
+        playSignature();
+    });
+
+    if (replayBtn) {
+        replayBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            playSignature();
+        });
+    }
+}
+initSignatureAnimation();
 
 // TIMELINE ELEMENT ENTRANCE ANIMATION
 const scrollObserver = new IntersectionObserver((entries) => {
