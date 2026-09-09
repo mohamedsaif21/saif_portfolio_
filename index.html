@@ -577,12 +577,54 @@ production management module used to track daily orders</p>
           <span class="pill-arrow">↗</span>
         </a>
 
+        <a href="Assest/Mohamed_Saif_Resume.pdf" target="_blank" rel="noopener" class="contact-social-pill resume-pill magnetic-element" aria-label="Resume">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+            <polyline points="14 2 14 8 20 8"></polyline>
+            <line x1="12" y1="18" x2="12" y2="12"></line>
+            <line x1="9" y1="15" x2="15" y2="15"></line>
+          </svg>
+          <span>Resume PDF</span>
+          <span class="pill-arrow">↓</span>
+        </a>
+      </div>
+
       <!-- 5. SVG Signature Drawing Animation -->
-      <div class="signature-container text-center">
-        <svg class="signature-svg" viewBox="0 0 260 80" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path class="signature-path" d="M20,55 C40,20 60,10 75,35 C90,60 110,65 125,45 C140,25 150,15 165,30 C180,45 200,60 220,35 C235,18 245,25 255,40 M60,40 L180,38" stroke="var(--primary)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+      <div class="signature-container text-center magnetic-element" id="signatureContainer" title="Click to replay signature">
+        <div class="signature-badge">Handwritten Signature</div>
+        <svg class="signature-svg" viewBox="0 0 340 120" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Mohamed Saif Signature">
+          <defs>
+            <filter id="sigGlow" x="-20%" y="-20%" width="140%" height="140%">
+              <feGaussianBlur stdDeviation="2.5" result="blur" />
+              <feMerge>
+                <feMergeNode in="blur" />
+                <feMergeNode in="SourceGraphic" />
+              </feMerge>
+            </filter>
+          </defs>
+          <g filter="url(#sigGlow)">
+            <!-- 1. Cursive M -->
+            <path class="signature-stroke sig-stroke-m" d="M 28,76 C 24,56 35,26 44,20 C 50,16 57,32 60,65 C 64,40 73,26 80,26 C 88,26 92,44 94,66 C 96,72 101,70 106,66" stroke="var(--primary)" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
+            <!-- 2. Dot after M -->
+            <circle class="signature-stroke sig-stroke-dot1" cx="112" cy="68" r="2.4" fill="var(--primary)"/>
+            <!-- 3. Cursive Saif -->
+            <path class="signature-stroke sig-stroke-saif" d="M 126,68 C 132,54 140,24 148,18 C 156,12 160,24 150,40 C 136,58 142,70 156,66 C 164,62 170,52 176,50 C 172,46 164,54 168,62 C 172,70 182,68 186,54 L 186,66 C 190,56 198,46 202,48 C 205,50 204,58 206,66 C 210,54 220,24 228,14 C 234,6 238,18 230,42 C 220,74 214,96 220,96 C 225,96 228,84 232,70 C 236,56 244,54 256,52" stroke="var(--primary)" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
+            <!-- 4. Dot on i -->
+            <circle class="signature-stroke sig-stroke-dot2" cx="196" cy="34" r="2.4" fill="var(--primary)"/>
+            <!-- 5. Underline Flourish -->
+            <path class="signature-stroke sig-stroke-flourish" d="M 38,88 C 90,95 180,97 245,82 C 270,76 295,68 310,62" stroke="var(--primary)" stroke-width="2.4" stroke-linecap="round"/>
+          </g>
         </svg>
-        <span class="signature-sub">Mohamed Saif — Frontend & Product Developer</span>
+        <div class="signature-footer-row">
+          <span class="signature-sub">Mohamed Saif — Frontend & Product Developer</span>
+          <button class="signature-replay-btn" id="sigReplayBtn" aria-label="Replay signature animation" title="Replay signature animation">
+            <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="1 4 1 10 7 10"></polyline>
+              <path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"></path>
+            </svg>
+            <span>Replay</span>
+          </button>
+        </div>
       </div>
 
     </div>
