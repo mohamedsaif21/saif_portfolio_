@@ -1141,18 +1141,22 @@ a {
     padding: 6vh 4vw;
   }
 
-  .tech-grid {
+  .tech-grid,
+  .skills-grid {
     grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
     gap: 18px;
     justify-items: center;
     align-items: center;
+    contain: layout;
   }
 
-  .tech-item {
+  .tech-item,
+  .skill-card {
     padding: 0.5rem;
   }
 
-  .tech-item img {
+  .tech-item img,
+  .skill-card img {
     max-width: 65px;
   }
 
@@ -1160,7 +1164,8 @@ a {
     padding: 6vh 4vw;
   }
 
-  .tech-grid {
+  .tech-grid,
+  .skills-grid {
     margin-top: 1.5rem;
   }
 
