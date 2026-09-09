@@ -1241,12 +1241,15 @@ a {
 }
 
 @media (max-width: 480px) {
-  .tech-grid {
+  .tech-grid,
+  .skills-grid {
     grid-template-columns: repeat(4, 1fr);
     gap: 14px;
+    contain: layout;
   }
 
-  .tech-item img {
+  .tech-item img,
+  .skill-card img {
     max-width: 55px;
   }
 }

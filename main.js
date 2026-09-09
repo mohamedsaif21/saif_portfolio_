@@ -192,6 +192,14 @@ if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
             ScrollTrigger.refresh();
         }
     });
+
+    if (document.fonts && document.fonts.ready) {
+        document.fonts.ready.then(() => {
+            if (typeof ScrollTrigger !== 'undefined') {
+                ScrollTrigger.refresh();
+            }
+        });
+    }
 }
 
 // INTERACTIVE MOUSE CUSTOM CURSOR
@@ -226,7 +234,7 @@ function updateCursorRing() {
 updateCursorRing();
 
 // Custom cursor hover states
-const hoverables = document.querySelectorAll('a, button, .project-card, .certificate-row, .tech-item, .hamburger-btn, .bento-card, .bento-play-btn');
+const hoverables = document.querySelectorAll('a, button, .project-card, .certificate-row, .tech-item, .skill-card, .hamburger-btn, .bento-card, .bento-play-btn');
 hoverables.forEach(el => {
     el.addEventListener('mouseenter', () => {
         if (cursorRing) cursorRing.classList.add('hovered');
@@ -665,7 +673,7 @@ soundToggleButtons.forEach(btn => btn.addEventListener('click', toggleAudioState
 mobileSoundToggles.forEach(btn => btn.addEventListener('click', toggleAudioState));
 
 // Connect hover/clicks sound notes
-const hoverSoundItems = document.querySelectorAll('a, button, .certificate-row, .project-card, .tech-item');
+const hoverSoundItems = document.querySelectorAll('a, button, .certificate-row, .project-card, .tech-item, .skill-card');
 hoverSoundItems.forEach(el => {
     el.addEventListener('mouseenter', () => {
         if (!isAudioMuted) {
