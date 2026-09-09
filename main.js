@@ -245,7 +245,7 @@ hoverables.forEach(el => {
 });
 
 // Magnetic Elements Pull Effect
-const magneticElements = document.querySelectorAll('.hero-social a, .hamburger-btn, .desktop-links a, .nav-download');
+const magneticElements = document.querySelectorAll('.hero-social a, .hamburger-btn, .desktop-links a, .nav-download, .magnetic-element');
 if (window.innerWidth > 768) {
     magneticElements.forEach(el => {
         el.addEventListener('mousemove', (e) => {
@@ -358,7 +358,7 @@ setupTextReveal();
 
 // SIGNATURE DRAWING OBSERVER
 const observerOptions = {
-    threshold: 0.5
+    threshold: 0.2
 };
 
 const signatureObserver = new IntersectionObserver((entries) => {
@@ -686,3 +686,91 @@ hoverSoundItems.forEach(el => {
         }
     });
 });
+
+// ==========================================================================
+// CONTACT FINALE INTERACTIVE FEATURES
+// ==========================================================================
+
+// 1. Live Time Clock (IST - Asia/Kolkata, UTC+5:30)
+function updateContactLiveClock() {
+    const clockEl = document.querySelector('#liveClock');
+    if (!clockEl) return;
+    try {
+        const now = new Date();
+        const options = {
+            timeZone: 'Asia/Kolkata',
+            hour: '2-digit',
+            minute: '2-digit',
+            second: '2-digit',
+            hour12: true
+        };
+        const timeString = new Intl.DateTimeFormat('en-US', options).format(now);
+        clockEl.textContent = `${timeString} IST`;
+    } catch (e) {
+        const now = new Date();
+        clockEl.textContent = `${now.toLocaleTimeString()} IST`;
+    }
+}
+setInterval(updateContactLiveClock, 1000);
+updateContactLiveClock();
+
+// 2. Interactive Click-to-Copy Email Button
+const copyEmailBtn = document.querySelector('#copyEmailBtn');
+if (copyEmailBtn) {
+    copyEmailBtn.addEventListener('click', () => {
+        const email = copyEmailBtn.getAttribute('data-email') || 'mohamedsaifb24@gmail.com';
+        
+        const onCopied = () => {
+            const label = copyEmailBtn.querySelector('.copy-label');
+            const tooltip = copyEmailBtn.querySelector('.copy-tooltip');
+            const originalLabel = label ? label.textContent : email;
+            const originalTooltip = tooltip ? tooltip.textContent : 'Click to Copy';
+
+            if (label) label.textContent = 'Copied to Clipboard! ✓';
+            if (tooltip) tooltip.textContent = 'Copied!';
+            copyEmailBtn.classList.add('copied');
+
+            if (typeof playUISound === 'function' && !isAudioMuted) {
+                playUISound(880, 0.08, 'sine');
+            }
+
+            setTimeout(() => {
+                if (label) label.textContent = originalLabel;
+                if (tooltip) tooltip.textContent = originalTooltip;
+                copyEmailBtn.classList.remove('copied');
+            }, 2500);
+        };
+
+        if (navigator.clipboard && window.isSecureContext) {
+            navigator.clipboard.writeText(email).then(onCopied).catch(() => {
+                window.location.href = `mailto:${email}`;
+            });
+        } else {
+            const textArea = document.createElement('textarea');
+            textArea.value = email;
+            textArea.style.position = 'fixed';
+            textArea.style.opacity = '0';
+            document.body.appendChild(textArea);
+            textArea.select();
+            try {
+                document.execCommand('copy');
+                onCopied();
+            } catch (err) {
+                window.location.href = `mailto:${email}`;
+            }
+            document.body.removeChild(textArea);
+        }
+    });
+}
+
+// 3. Back To Top Smooth Scroll
+const backToTopBtn = document.querySelector('#backToTopBtn');
+if (backToTopBtn) {
+    backToTopBtn.addEventListener('click', () => {
+        if (typeof lenis !== 'undefined' && lenis) {
+            lenis.scrollTo(0, { duration: 1.5 });
+        } else {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    });
+}
