@@ -139,18 +139,31 @@ a {
   border: none;
   cursor: pointer;
   flex-direction: column;
-  justify-content: space-between;
-  width: 30px;
-  height: 20px;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+  width: 44px;
+  height: 44px;
+  padding: 10px 8px;
   z-index: 200;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .hamburger-btn .bar {
   display: block;
-  width: 100%;
+  width: 24px;
   height: 2px;
   background-color: var(--text);
-  transition: all 0.3s ease;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.3s ease;
+  transform-origin: center;
+}
+
+@media (min-width: 769px) {
+  .hamburger-btn,
+  .mobile-nav-actions,
+  .mobile-menu-overlay {
+    display: none !important;
+  }
 }
 
 .mobile-menu-overlay {
@@ -231,11 +244,11 @@ a {
 }
 
 .hamburger-btn.active .bar:nth-child(1) {
-  transform: translateY(9px) rotate(45deg);
+  transform: translateY(4px) rotate(45deg);
 }
 
 .hamburger-btn.active .bar:nth-child(2) {
-  transform: translateY(-9px) rotate(-45deg);
+  transform: translateY(-4px) rotate(-45deg);
 }
 
 /* HORIZONTAL SCROLL SECTIONS */
