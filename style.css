@@ -281,10 +281,22 @@ a {
 }
 
 /* HERO SPECIFIC */
+.hero-eyebrow {
+  font-family: var(--font-main);
+  font-size: clamp(1.4rem, 3vw, 2.5rem);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--text-dim);
+  margin-bottom: 0.5rem;
+  line-height: 1;
+}
+
 .hero-title {
-  font-size: 10vw;
+  font-size: clamp(2.8rem, 9vw, 9rem);
   font-weight: 700;
   text-align: center;
+  line-height: 0.95;
+  word-break: break-word;
 }
 
 .hero-subtitle {
@@ -443,6 +455,24 @@ a {
 
 .image-placeholder:hover .about-image {
   transform: scale(1.05);
+}
+
+/* SECTION HEADERS */
+.section-header {
+  margin-bottom: 3.5rem;
+  width: 100%;
+}
+
+.section-header.text-center,
+.text-center {
+  text-align: center;
+}
+
+.section-header h2 {
+  font-size: clamp(2.4rem, 5.5vw, 4.5rem);
+  letter-spacing: -0.02em;
+  color: var(--text);
+  margin: 0 auto;
 }
 
 /* CERTIFICATES */
@@ -838,14 +868,17 @@ a {
 }
 
 .project-image {
-  width: 400px;
-  height: 250px;
+  width: 100%;
+  max-width: 440px;
+  aspect-ratio: 16 / 10;
+  height: auto;
   background: #222;
   border-radius: 10px;
   overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-shrink: 0;
 }
 
 .project-image img {
@@ -1452,70 +1485,7 @@ a {
   transform: translateY(-3px);
 }
 
-/* Responsive Footer Media Queries */
-@media (max-width: 1024px) {
-  .contact-social-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
 
-@media (max-width: 768px) {
-  .contact-section {
-    padding: 9vh 5vw 0;
-  }
-
-  .contact-status-bar {
-    flex-direction: column;
-    gap: 0.75rem;
-  }
-
-  .contact-actions-group {
-    flex-direction: column;
-    width: 100%;
-  }
-
-  .contact-mail-btn,
-  .copy-email-btn {
-    width: 100%;
-    justify-content: center;
-    padding: 1rem 1.5rem;
-  }
-
-  .contact-social-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 0.75rem;
-  }
-
-  .contact-social-pill {
-    padding: 0.85rem 1rem;
-    font-size: 0.88rem;
-  }
-
-  .footer-inner {
-    flex-direction: column;
-    text-align: center;
-    gap: 1.2rem;
-  }
-
-  .back-to-top-btn {
-    margin: 0 auto;
-  }
-}
-
-@media (max-width: 480px) {
-  .contact-social-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .copy-email-btn .copy-label {
-    font-size: 0.85rem;
-  }
-
-  .signature-svg {
-    width: 250px;
-    height: 85px;
-  }
-}
 
 /* Poster Cards */
 .posters-wrapper {
@@ -1660,10 +1630,56 @@ a {
   color: #999;
 }
 
-/* MOBILE RESPONSIVENESS */
+/* ==========================================================================
+   RESPONSIVE MEDIA QUERIES (CASCADE: 1024px -> 768px -> 480px)
+   ========================================================================== */
+
+/* TABLET & SMALL LAPTOP RESPONSIVENESS (<= 1024px) */
+@media (max-width: 1024px) {
+  .contact-social-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .project-card {
+    flex-direction: column-reverse;
+    align-items: stretch;
+    gap: 2rem;
+    padding: 2.25rem 1.75rem;
+  }
+
+  .project-image {
+    max-width: 100%;
+    width: 100%;
+  }
+
+  .exp-title {
+    font-size: clamp(2.8rem, 6vw, 4rem);
+    margin-bottom: 60px;
+  }
+
+  .timeline-item {
+    grid-template-columns: 1fr;
+    gap: 30px;
+    padding-left: 36px;
+  }
+
+  .timeline-item > div:empty {
+    display: none;
+  }
+
+  .timeline::before {
+    left: 14px;
+  }
+
+  .timeline-item:nth-child(even) .timeline-content {
+    order: 0;
+  }
+}
+
+/* TABLET & MOBILE RESPONSIVENESS (<= 768px) */
 @media (max-width: 768px) {
   .desktop-links {
-    display: none;
+    display: none !important;
   }
 
   .mobile-nav-actions {
@@ -1711,6 +1727,19 @@ a {
     padding: 4rem 1.5rem;
   }
 
+  .hero-eyebrow {
+    font-size: 1.2rem;
+  }
+
+  .hero-title {
+    font-size: clamp(2.2rem, 7vw, 2.8rem);
+    line-height: 1.1;
+  }
+
+  .hero-subtitle {
+    font-size: 1.3rem;
+  }
+
   .hero-slide-2,
   .hero-slide-3 {
     opacity: 0;
@@ -1728,22 +1757,13 @@ a {
     display: flex;
   }
 
-  .hero-title {
-    font-size: 2.4rem;
-    line-height: 1.1;
-  }
-
-  .hero-subtitle {
-    font-size: 1.5rem;
-  }
-
   .mission-statement {
-    font-size: 1.8rem;
+    font-size: 1.6rem;
     max-width: 100%;
   }
 
   .cta-container h2 {
-    font-size: 2.5rem;
+    font-size: 2.2rem;
     margin-bottom: 2rem;
   }
 
@@ -1753,7 +1773,7 @@ a {
   }
 
   .about-text h2 {
-    font-size: 2.5rem;
+    font-size: 2.2rem;
   }
 
   .mobile-menu-overlay a {
@@ -1761,9 +1781,10 @@ a {
   }
 
   .circle-decor {
-    width: 300px;
-    height: 300px;
+    width: 260px;
+    height: 260px;
     right: -20%;
+    pointer-events: none;
   }
 
   .certificates-section {
@@ -1773,9 +1794,8 @@ a {
   .tech-grid,
   .skills-grid {
     grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
-    gap: 18px;
-    justify-items: center;
-    align-items: center;
+    gap: 16px;
+    margin-top: 1.5rem;
     contain: layout;
   }
 
@@ -1793,31 +1813,56 @@ a {
     padding: 6vh 4vw;
   }
 
-  .tech-grid,
-  .skills-grid {
-    margin-top: 1.5rem;
+  /* Posters on Mobile */
+  .posters-wrapper {
+    width: 100% !important;
+    max-width: 100% !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    transform: none !important;
+  }
+
+  .poster-intro {
+    width: 100% !important;
+    min-height: auto !important;
+    padding: 3rem 1.5rem 1.5rem !important;
+    transform: none !important;
   }
 
   .poster-intro h2 {
-    font-size: 3rem;
+    font-size: 2.5rem;
+  }
+
+  .poster-item {
+    width: 100% !important;
+    min-height: auto !important;
+    padding: 1rem 0 !important;
+    display: flex;
+    justify-content: center;
   }
 
   .poster-card {
-    width: 220px;
+    width: 100%;
+    max-width: 280px;
+    margin: 0 auto;
   }
 
+  /* Projects on Mobile */
   .project-card {
-    flex-direction: column-reverse;
+    flex-direction: column-reverse !important;
+    gap: 1.5rem !important;
+    padding: 1.75rem 1.25rem !important;
   }
 
   .project-image {
     width: 100%;
-    height: 200px;
-    margin-top: 1rem;
+    height: auto;
+    aspect-ratio: 16 / 10;
+    margin-top: 0.5rem;
   }
 
   .project-info h3 {
-    font-size: 2rem;
+    font-size: 1.8rem;
   }
 
   .project-tech img {
@@ -1829,23 +1874,29 @@ a {
     font-size: 0.95rem;
   }
 
+  /* Experience / Timeline on Mobile */
   .experience {
-    padding: 80px 20px;
+    padding: 60px 18px;
   }
 
   .exp-title {
-    font-size: 2.2rem;
-    margin-bottom: 40px;
+    font-size: clamp(1.8rem, 6vw, 2.2rem) !important;
+    margin-bottom: 35px;
   }
 
   .timeline-item {
     grid-template-columns: 1fr;
-    gap: 30px;
-    margin-bottom: 50px;
+    gap: 0;
+    margin-bottom: 35px;
+    padding-left: 32px;
+  }
+
+  .timeline-item > div:empty {
+    display: none;
   }
 
   .timeline::before {
-    left: 0;
+    left: 12px;
   }
 
   .timeline-item:nth-child(even) .timeline-content {
@@ -1853,52 +1904,99 @@ a {
   }
 
   .timeline-content {
-    padding: 25px;
+    padding: 22px 18px;
   }
 
   .timeline-content h3 {
-    font-size: 24px;
+    font-size: 22px;
   }
 
   .timeline-content p {
-    font-size: 15px;
+    font-size: 14px;
+  }
+
+  /* Contact Section on Mobile */
+  .contact-section {
+    padding: 8vh 5vw 0;
   }
 
   .contact-section h2 {
-    font-size: 2.5rem;
+    font-size: 2.2rem;
+  }
+
+  .contact-status-bar {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .contact-actions-group {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .contact-mail-btn,
+  .copy-email-btn {
+    width: 100%;
+    justify-content: center;
+    padding: 1rem 1.25rem;
+  }
+
+  .contact-social-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.75rem;
+  }
+
+  .contact-social-pill {
+    padding: 0.85rem 1rem;
+    font-size: 0.88rem;
+  }
+
+  .footer-inner {
+    flex-direction: column;
+    text-align: center;
+    gap: 1.2rem;
+  }
+
+  .back-to-top-btn {
+    margin: 0 auto;
   }
 }
 
+/* SMALL PHONES RESPONSIVENESS (<= 480px) */
 @media (max-width: 480px) {
   .tech-grid,
   .skills-grid {
     grid-template-columns: repeat(4, 1fr);
-    gap: 14px;
+    gap: 12px;
     contain: layout;
   }
 
   .tech-item img,
   .skill-card img {
-    max-width: 55px;
-  }
-}
-
-@media (max-width: 1024px) {
-  .exp-title {
-    font-size: 3.5rem;
+    max-width: 50px;
   }
 
-  .timeline-item {
+  .contact-social-grid {
     grid-template-columns: 1fr;
-    gap: 30px;
   }
 
-  .timeline::before {
-    left: 0;
+  .copy-email-btn .copy-label {
+    font-size: 0.85rem;
   }
 
-  .timeline-item:nth-child(even) .timeline-content {
-    order: 0;
+  .signature-svg {
+    max-width: 100%;
+    width: 240px;
+    height: 80px;
+  }
+
+  .project-card {
+    padding: 1.5rem 1rem !important;
+  }
+
+  .pos-workflow-flow {
+    font-size: 0.8rem;
+    padding: 0.75rem;
   }
 }
 
@@ -2033,18 +2131,7 @@ html.lenis {
   pointer-events: none;
 }
 
-/* Mobile responsive padding for timeline line & project card stack */
-@media (max-width: 768px) {
-  .project-card {
-    flex-direction: column-reverse !important;
-    gap: 1.5rem !important;
-    padding: 2rem !important;
-  }
-  
-  .timeline-item {
-    padding-left: 24px;
-  }
-}
+
 
 /* ==========================================================================
    ADVANCED EXPERIMENTAL UPGRADES (PARTICLE CANVAS & SOUND CONFIG)
@@ -2379,4 +2466,83 @@ html.lenis {
   font-weight: 700;
   color: #C3CDAF;
   pointer-events: none;
+}
+
+/* Responsive Lando Norris Gallery */
+@media (max-width: 768px) {
+  .landonorris-gallery-section {
+    height: auto;
+    min-height: auto;
+    padding: 5rem 0 3rem;
+    overflow-x: clip;
+    overflow-y: visible;
+  }
+
+  .landonorris-header {
+    position: static;
+    padding: 0 1.5rem 1.25rem;
+    pointer-events: auto;
+  }
+
+  .landonorris-badge-row {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .landonorris-drag-hint {
+    color: var(--primary);
+    font-size: 11px;
+  }
+
+  .gallery-track-wrapper {
+    height: auto;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    padding: 1rem 0 1.5rem;
+    scrollbar-width: thin;
+    scrollbar-color: var(--primary) transparent;
+  }
+
+  .gallery-track-wrapper::-webkit-scrollbar {
+    height: 4px;
+  }
+
+  .gallery-track-wrapper::-webkit-scrollbar-thumb {
+    background: var(--primary);
+    border-radius: 4px;
+  }
+
+  .gallery-track {
+    height: auto;
+    width: max-content;
+    padding: 0 1.5rem;
+    gap: 1.25rem;
+  }
+
+  .landonorris-card {
+    transform: none !important;
+    width: 72vw;
+    max-width: 280px;
+    flex-shrink: 0;
+  }
+
+  .pos-up,
+  .pos-up-high,
+  .pos-down,
+  .pos-low {
+    transform: none !important;
+  }
+
+  .landonorris-editorial-accent {
+    max-width: 85vw;
+    margin: 1.5rem 1.5rem 0;
+  }
+
+  .landonorris-badge-accent {
+    position: static;
+    margin: 1rem 1.5rem 0;
+    display: inline-block;
+  }
 }
