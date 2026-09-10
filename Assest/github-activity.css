@@ -1,0 +1,87 @@
+/* GitHub contribution heatmap and recent commit feed. */
+.gh-activity {
+  max-width: 900px;
+  margin: 3rem auto;
+  padding: 1.5rem;
+  font-family: inherit;
+  color: #e6edf3;
+}
+
+.gh-activity__header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.gh-activity__title { font-size: 1.4rem; font-weight: 600; margin: 0; }
+.gh-activity__total { color: #8b949e; font-size: 0.9rem; }
+
+.gh-heatmap-wrap { overflow-x: auto; padding-bottom: 0.5rem; }
+.gh-heatmap {
+  display: grid;
+  grid-auto-flow: column;
+  grid-template-rows: repeat(7, 12px);
+  gap: 3px;
+  width: max-content;
+}
+.gh-heatmap__cell {
+  width: 12px;
+  height: 12px;
+  border-radius: 2px;
+  background: #161b22;
+  cursor: pointer;
+  transition: outline 0.1s ease;
+  position: relative;
+}
+.gh-heatmap__cell:hover { outline: 1px solid #e6edf3; }
+.gh-heatmap__cell[data-level="0"] { background: #161b22; }
+.gh-heatmap__cell[data-level="1"] { background: #0e4429; }
+.gh-heatmap__cell[data-level="2"] { background: #006d32; }
+.gh-heatmap__cell[data-level="3"] { background: #26a641; }
+.gh-heatmap__cell[data-level="4"] { background: #39d353; }
+
+.gh-legend {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.75rem;
+  color: #8b949e;
+  margin-top: 0.5rem;
+}
+.gh-legend__cell { width: 10px; height: 10px; border-radius: 2px; }
+
+.gh-tooltip {
+  position: fixed;
+  pointer-events: none;
+  background: #1c2128;
+  border: 1px solid #30363d;
+  color: #e6edf3;
+  font-size: 0.75rem;
+  padding: 6px 10px;
+  border-radius: 6px;
+  white-space: nowrap;
+  z-index: 50;
+  opacity: 0;
+  transform: translateY(4px);
+  transition: opacity 0.1s ease, transform 0.1s ease;
+}
+.gh-tooltip.is-visible { opacity: 1; transform: translateY(0); }
+
+.gh-feed {
+  list-style: none;
+  margin: 1.5rem 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+}
+.gh-feed__item { display: flex; gap: 0.75rem; align-items: flex-start; text-decoration: none; color: inherit; }
+.gh-feed__dot { width: 8px; height: 8px; border-radius: 50%; background: #39d353; margin-top: 6px; flex-shrink: 0; }
+.gh-feed__body { display: flex; flex-direction: column; }
+.gh-feed__msg { font-size: 0.9rem; color: #e6edf3; }
+.gh-feed__meta { font-size: 0.78rem; color: #8b949e; margin-top: 2px; }
+.gh-feed__repo { color: #58a6ff; }
+.gh-activity__error { color: #8b949e; font-size: 0.85rem; }
