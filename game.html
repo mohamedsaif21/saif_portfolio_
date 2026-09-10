@@ -476,7 +476,7 @@
     </style>
 </head>
 <body>
-    <a href="index.html#games" id="backLink">← Back to Portfolio</a>
+    <a href="gamesection.html" id="backLink">← Back to Games</a>
     <div id="gameContainer">
         <canvas id="gameCanvas"></canvas>
         <div id="ui">
@@ -728,83 +728,36 @@
         }
 
         async function generateLevel(theme, level) {
-            const difficulty = Math.min(level * 0.3, 3);
-            
-            const prompt = `Generate a platformer level with this theme: "${theme}". Level ${level}.
-            
-Return ONLY valid JSON with this exact structure (no markdown, no explanation):
-{
-    "platforms": [
-        {"x": number, "y": number, "width": number, "height": number, "type": "solid"}
-    ],
-    "hazards": [
-        {"x": number, "y": number, "width": number, "height": number, "type": "hazard"}
-    ],
-    "goal": {"x": number, "y": number, "width": 40, "height": 40, "type": "goal"},
-    "startPos": {"x": number, "y": number},
-    "colors": {
-        "background": "hex color",
-        "platform": "hex color",
-        "player": "hex color",
-        "goal": "hex color",
-        "hazard": "hex color"
-    }
-}
-
-Rules:
-- Canvas is ${canvas.width}x${canvas.height}
-- Level ${level} difficulty: ${difficulty.toFixed(1)}/3
-- Include ${5 + level} to ${8 + level} platforms
-- Include ${Math.floor(level / 2)} to ${Math.floor(level / 1.5) + 1} hazards (spikes, lava, etc)
-- Start position around x:50, y:500
-- Goal position at far right, elevated
-- Make platforms progressively harder to reach with more gaps
-- Add moving/floating platforms feel with varied heights
-- Ensure level is beatable
-- Use thematic colors
-- Platform widths: 60-200, heights: 20-40
-- Hazard sizes: 30-100 wide, 20-40 tall`;
-
-            try {
-                const controller = new AbortController();
-                const timeout = setTimeout(() => controller.abort(), 10000);
-
-                const response = await fetch('https://api.anthropic.com/v1/messages', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    signal: controller.signal,
-                    body: JSON.stringify({
-                        model: 'claude-sonnet-4-20250514',
-                        max_tokens: 1000,
-                        messages: [{ role: 'user', content: prompt }]
-                    })
-                });
-
-                clearTimeout(timeout);
-
-                if (!response.ok) {
-                    throw new Error('API request failed');
-                }
-
-                const data = await response.json();
-                const content = data.content[0].text.trim();
-                const cleanContent = content.replace(/```json\n?|\n?```/g, '');
-                const parsed = JSON.parse(cleanContent);
-
-                if (!parsed.platforms || !parsed.startPos || !parsed.goal) {
-                    throw new Error('Invalid level structure');
-                }
-
-                return parsed;
-            } catch (error) {
-                console.error('Level generation error:', error);
-                return generateFallbackLevel(level);
-            }
+            // Simulated AI generation delay for realistic generator effect
+            await new Promise(resolve => setTimeout(resolve, 650));
+            return generateProceduralLevel(theme, level);
         }
 
-        function generateFallbackLevel(level) {
+        function getThemeColors(theme) {
+            const t = (theme || '').toLowerCase();
+            if (t.includes('cyber') || t.includes('neon') || t.includes('synth')) {
+                return { background: '#0f051d', platform: '#ff007f', player: '#00f0ff', goal: '#ffe600', hazard: '#ff3366' };
+            } else if (t.includes('temple') || t.includes('desert') || t.includes('ancient') || t.includes('sand')) {
+                return { background: '#d4a373', platform: '#8b5a2b', player: '#2b2d42', goal: '#ffd700', hazard: '#c1121f' };
+            } else if (t.includes('candy') || t.includes('sweet') || t.includes('sugar')) {
+                return { background: '#ffd1dc', platform: '#ff69b4', player: '#70d6ff', goal: '#ffff3f', hazard: '#ff4d6d' };
+            } else if (t.includes('space') || t.includes('galaxy') || t.includes('cosmic') || t.includes('star')) {
+                return { background: '#050515', platform: '#3a0ca3', player: '#4cc9f0', goal: '#f72585', hazard: '#b5179e' };
+            } else if (t.includes('forest') || t.includes('nature') || t.includes('jungle')) {
+                return { background: '#1b4332', platform: '#2d6a4f', player: '#d8f3dc', goal: '#ffb703', hazard: '#d90429' };
+            } else if (t.includes('lava') || t.includes('fire') || t.includes('volcano')) {
+                return { background: '#2b0707', platform: '#6b2d2d', player: '#ffb703', goal: '#ffd166', hazard: '#d90429' };
+            } else if (t.includes('ice') || t.includes('snow') || t.includes('winter') || t.includes('frozen')) {
+                return { background: '#e0f7fa', platform: '#80deea', player: '#006064', goal: '#ffd54f', hazard: '#ff5252' };
+            }
+            return { background: '#161b22', platform: '#21262d', player: '#c4ff00', goal: '#39d353', hazard: '#ff7b72' };
+        }
+
+        function generateProceduralLevel(theme, level) {
+            return generateFallbackLevel(level, theme);
+        }
+
+        function generateFallbackLevel(level, theme) {
             const canvasHeight = canvas.height;
             const maxX = canvas.width - 40;
 
@@ -847,13 +800,7 @@ Rules:
                 hazards: hazards,
                 goal: { x: goalX, y: goalY, width: 40, height: 40, type: 'goal' },
                 startPos: { x: 40, y: canvasHeight - 110 },
-                colors: {
-                    background: '#87CEEB',
-                    platform: '#8B4513',
-                    player: '#FF6B6B',
-                    goal: '#FFD700',
-                    hazard: '#FF0000'
-                }
+                colors: getThemeColors(theme)
             };
         }
 
