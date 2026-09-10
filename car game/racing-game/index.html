@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<title>Apex Circuit — Browser Racer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <canvas id="game-canvas"></canvas>
+
+  <!-- ===================== HUD (in-race) ===================== -->
+  <div id="hud" class="hidden">
+    <div class="hud-panel hud-top-left">
+      <div class="readout">
+        <span class="readout-label">Speed</span>
+        <span class="readout-value" id="speed-value">000</span>
+        <span class="readout-unit">km/h</span>
+      </div>
+      <div class="readout-divider"></div>
+      <div class="readout">
+        <span class="readout-label">Time</span>
+        <span class="readout-value" id="time-value">00:00</span>
+      </div>
+      <div class="readout-divider"></div>
+      <div class="readout">
+        <span class="readout-label">Lap</span>
+        <span class="readout-value" id="lap-value">1<span class="readout-of">/1</span></span>
+      </div>
+    </div>
+
+    <div class="hud-top-right">
+      <button id="pause-btn" class="icon-btn" title="Pause" aria-label="Pause">
+        <svg viewBox="0 0 24 24" width="20" height="20"><rect x="6" y="5" width="4" height="14"/><rect x="14" y="5" width="4" height="14"/></svg>
+      </button>
+      <button id="help-btn" class="icon-btn" title="Controls" aria-label="Controls">?</button>
+      <button id="restart-btn" class="icon-btn" title="Restart (R)" aria-label="Restart">
+        <svg viewBox="0 0 24 24" width="20" height="20"><path d="M12 4a8 8 0 1 0 7.44 5.06" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M20 4v6h-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+    </div>
+
+    <div id="offroad-warning" class="offroad-warning hidden">OFF TRACK</div>
+
+    <div id="help-panel" class="help-panel hidden">
+      <h3>Controls</h3>
+      <ul>
+        <li><span class="key">W</span><span class="key">↑</span> Accelerate</li>
+        <li><span class="key">S</span><span class="key">↓</span> Brake / Reverse</li>
+        <li><span class="key">A</span><span class="key">←</span> Steer left</li>
+        <li><span class="key">D</span><span class="key">→</span> Steer right</li>
+        <li><span class="key">Space</span> Handbrake</li>
+        <li><span class="key">R</span> Restart</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ===================== Start overlay ===================== -->
+  <div id="start-overlay" class="overlay">
+    <div class="overlay-card">
+      <div class="eyebrow">Apex Circuit</div>
+      <h1>One lap. Full send.</h1>
+      <p>A closed circuit with a chicane, curbs, and open corners. Cross the line to set your time.</p>
+      <div class="controls-grid">
+        <div class="controls-col">
+          <div class="controls-row"><span class="key">W</span><span class="key">↑</span><span class="ctl-label">Accelerate</span></div>
+          <div class="controls-row"><span class="key">S</span><span class="key">↓</span><span class="ctl-label">Brake / Reverse</span></div>
+        </div>
+        <div class="controls-col">
+          <div class="controls-row"><span class="key">A</span><span class="key">D</span><span class="ctl-label">Steer</span></div>
+          <div class="controls-row"><span class="key">Space</span><span class="ctl-label">Handbrake</span></div>
+        </div>
+      </div>
+      <button id="start-btn" class="primary-btn">Start Engine</button>
+      <div id="loading-note" class="loading-note">Loading vehicle…</div>
+    </div>
+  </div>
+
+  <!-- ===================== Pause overlay ===================== -->
+  <div id="pause-overlay" class="overlay hidden">
+    <div class="overlay-card">
+      <div class="eyebrow">Paused</div>
+      <h1>Take a breath.</h1>
+      <button id="resume-btn" class="primary-btn">Resume</button>
+      <button id="pause-restart-btn" class="secondary-btn">Restart</button>
+    </div>
+  </div>
+
+  <!-- ===================== Finish overlay ===================== -->
+  <div id="finish-overlay" class="overlay hidden">
+    <div class="overlay-card">
+      <div class="eyebrow">Checkered flag</div>
+      <h1>Race complete!</h1>
+      <div class="finish-time" id="finish-time">00:00.0</div>
+      <button id="race-again-btn" class="primary-btn">Race Again</button>
+    </div>
+  </div>
+
+  <div id="error-banner" class="error-banner hidden"></div>
+
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+      "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+    }
+  }
+  </script>
+  <script type="module" src="game.js"></script>
+</body>
+</html>
