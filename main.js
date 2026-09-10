@@ -27,48 +27,73 @@ const mobileMenu = document.querySelector('.mobile-menu-overlay');
 
 // NAVIGATION & SMOOTH SCROLL
 function scrollToTarget(target) {
-    const element = document.querySelector(target);
-    if (element) {
-        const navHeight = document.querySelector('.fixed-nav').offsetHeight;
-        if (lenis) {
-            lenis.scrollTo(element, {
-                offset: -navHeight,
-                duration: 1.2
-            });
-        } else {
-            const elementPosition = element.getBoundingClientRect().top;
-            const offsetPosition = elementPosition + window.pageYOffset - navHeight;
-            window.scrollTo({
-                top: offsetPosition,
-                behavior: 'smooth'
-            });
+    if (!target || typeof target !== 'string' || !target.startsWith('#') || target === '#') return;
+    try {
+        const element = document.querySelector(target);
+        if (element) {
+            const nav = document.querySelector('.fixed-nav');
+            const navHeight = nav ? nav.offsetHeight : 0;
+            if (lenis) {
+                lenis.scrollTo(element, {
+                    offset: -navHeight,
+                    duration: 1.2
+                });
+            } else {
+                const elementPosition = element.getBoundingClientRect().top;
+                const offsetPosition = elementPosition + window.pageYOffset - navHeight;
+                window.scrollTo({
+                    top: offsetPosition,
+                    behavior: 'smooth'
+                });
+            }
         }
+    } catch (err) {
+        console.warn('Scroll target error:', err);
     }
 }
 
 // MENU LOGIC
 if (hamburger && mobileMenu) {
-    hamburger.addEventListener('click', () => {
-        hamburger.classList.toggle('active');
+    const closeMobileMenu = () => {
+        hamburger.classList.remove('active');
+        mobileMenu.classList.remove('active');
+        hamburger.setAttribute('aria-expanded', 'false');
+    };
+
+    const toggleMobileMenu = () => {
+        const isActive = hamburger.classList.toggle('active');
         mobileMenu.classList.toggle('active');
-    });
+        hamburger.setAttribute('aria-expanded', isActive ? 'true' : 'false');
+    };
+
+    hamburger.addEventListener('click', toggleMobileMenu);
 
     mobileMenu.querySelectorAll('a').forEach(link => {
         link.addEventListener('click', (e) => {
             const target = link.getAttribute('href');
-            if (link.classList.contains('nav-download') || target.endsWith('.pdf') || target.endsWith('.html')) {
-                hamburger.classList.remove('active');
-                mobileMenu.classList.remove('active');
+            closeMobileMenu();
+            if (!target || !target.startsWith('#') || target === '#') {
                 return;
             }
             e.preventDefault();
-            hamburger.classList.remove('active');
-            mobileMenu.classList.remove('active');
-            
             setTimeout(() => {
                 scrollToTarget(target);
             }, 300);
         });
+    });
+
+    // Close on Escape key
+    window.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && mobileMenu.classList.contains('active')) {
+            closeMobileMenu();
+        }
+    });
+
+    // Close on desktop resize
+    window.addEventListener('resize', () => {
+        if (window.innerWidth > 768 && mobileMenu.classList.contains('active')) {
+            closeMobileMenu();
+        }
     });
 }
 
@@ -76,7 +101,7 @@ const desktopLinks = document.querySelectorAll('.desktop-links a');
 desktopLinks.forEach(link => {
     link.addEventListener('click', (e) => {
         const target = link.getAttribute('href');
-        if (link.classList.contains('nav-download') || target.endsWith('.pdf') || target.endsWith('.html')) {
+        if (!target || !target.startsWith('#') || target === '#') {
             return;
         }
         e.preventDefault();
@@ -159,6 +184,39 @@ if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
             );
         });
 
+        // Lando Norris Editorial Gallery pinned horizontal scroll (Desktop only)
+        const gallery = document.querySelector("#gallery");
+        const track = document.querySelector("#galleryTrack");
+        const cards = gsap.utils.toArray("#galleryTrack .landonorris-card");
+
+        if (gallery && track && cards.length) {
+            const getScrollDistance = () => -(track.scrollWidth - window.innerWidth);
+
+            const tl = gsap.timeline({
+                scrollTrigger: {
+                    trigger: gallery,
+                    pin: true,
+                    scrub: 1,
+                    start: "top top",
+                    end: () => `+=${track.scrollWidth}`,
+                    invalidateOnRefresh: true,
+                    anticipatePin: 1
+                }
+            });
+
+            tl.to(track, {
+                x: getScrollDistance,
+                ease: "none"
+            });
+
+            cards.forEach((card) => {
+                const speed = parseFloat(card.dataset.speed) || 1;
+                tl.to(card, {
+                    x: () => -(120 * speed),
+                    ease: "none"
+                }, 0);
+            });
+        }
     });
 
     // Mobile viewport matching (max-width: 768px)
@@ -233,8 +291,7 @@ function updateCursorRing() {
 }
 updateCursorRing();
 
-// Custom cursor hover states
-const hoverables = document.querySelectorAll('a, button, .project-card, .certificate-row, .tech-item, .skill-card, .hamburger-btn, .bento-card, .bento-play-btn');
+const hoverables = document.querySelectorAll('a, button, .project-card, .certificate-row, .tech-item, .skill-card, .hamburger-btn, .landonorris-card');
 hoverables.forEach(el => {
     el.addEventListener('mouseenter', () => {
         if (cursorRing) cursorRing.classList.add('hovered');
@@ -537,60 +594,6 @@ const scrollObserver = new IntersectionObserver((entries) => {
 const animateElements = document.querySelectorAll('.animate-on-scroll, .timeline, .timeline-item, .hero-panel.hero-slide-1, .hero-panel.hero-slide-2, .hero-panel.hero-slide-3');
 animateElements.forEach(el => scrollObserver.observe(el));
 
-// ==========================================================================
-// LANDO NORRIS EDITORIAL GALLERY LOGIC (Dark Olive #22261F Pinned Sequential Track)
-// ==========================================================================
-if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
-    gsap.registerPlugin(ScrollTrigger);
-
-    const gallery = document.querySelector("#gallery");
-    const track = document.querySelector("#galleryTrack");
-    const cards = gsap.utils.toArray("#galleryTrack .landonorris-card");
-
-    if (gallery && track && cards.length) {
-        // Total scroll travel equals the track width minus the viewport width
-        const getScrollDistance = () => -(track.scrollWidth - window.innerWidth);
-
-        const tl = gsap.timeline({
-            scrollTrigger: {
-                trigger: gallery,
-                pin: true,
-                scrub: 1,
-                start: "top top",
-                end: () => `+=${track.scrollWidth}`,
-                invalidateOnRefresh: true,
-                anticipatePin: 1
-            }
-        });
-
-        // Base track glide from right to left
-        tl.to(track, {
-            x: getScrollDistance,
-            ease: "none"
-        });
-
-        // Secondary independent velocity & sequential entrance parallax per card
-        cards.forEach((card) => {
-            const speed = parseFloat(card.dataset.speed) || 1;
-            tl.to(card, {
-                x: () => -(120 * speed),
-                ease: "none"
-            }, 0);
-
-            // Hover cursor effect
-            card.addEventListener('mouseenter', () => {
-                if (cursorRing) cursorRing.classList.add('hovered');
-            });
-            card.addEventListener('mouseleave', () => {
-                if (cursorRing) cursorRing.classList.remove('hovered');
-            });
-        });
-
-        // Ensure triggers are sorted in DOM order so earlier pin-spacers adjust subsequent sections like posters
-        ScrollTrigger.sort();
-        ScrollTrigger.refresh();
-    }
-}
 
 // CERTIFICATES INTERACTIVE LOGIC (Row Hover & Lightbox Modal)
 const certRows = document.querySelectorAll('.certificate-row');
@@ -819,24 +822,26 @@ function toggleAudioState() {
     });
 }
 
-// Bind Mute Toggle click events
-soundToggleButtons.forEach(btn => btn.addEventListener('click', toggleAudioState));
-mobileSoundToggles.forEach(btn => btn.addEventListener('click', toggleAudioState));
+// Bind Mute Toggle click events if present
+if (soundToggleButtons.length > 0 || mobileSoundToggles.length > 0) {
+    soundToggleButtons.forEach(btn => btn.addEventListener('click', toggleAudioState));
+    mobileSoundToggles.forEach(btn => btn.addEventListener('click', toggleAudioState));
 
-// Connect hover/clicks sound notes
-const hoverSoundItems = document.querySelectorAll('a, button, .certificate-row, .project-card, .tech-item, .skill-card');
-hoverSoundItems.forEach(el => {
-    el.addEventListener('mouseenter', () => {
-        if (!isAudioMuted) {
-            playUISound(600, 0.04, 'sine');
-        }
+    // Connect hover/clicks sound notes
+    const hoverSoundItems = document.querySelectorAll('a, button, .certificate-row, .project-card, .tech-item, .skill-card');
+    hoverSoundItems.forEach(el => {
+        el.addEventListener('mouseenter', () => {
+            if (!isAudioMuted) {
+                playUISound(600, 0.04, 'sine');
+            }
+        });
+        el.addEventListener('click', () => {
+            if (!isAudioMuted) {
+                playUISound(850, 0.1, 'sine');
+            }
+        });
     });
-    el.addEventListener('click', () => {
-        if (!isAudioMuted) {
-            playUISound(850, 0.1, 'sine');
-        }
-    });
-});
+}
 
 // ==========================================================================
 // CONTACT FINALE INTERACTIVE FEATURES
