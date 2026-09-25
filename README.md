@@ -5,32 +5,48 @@
 </p>
 
 <p align="center">
-  A modern, interactive portfolio website showcasing my skills, projects, technical experience, and professional journey.
+  A modern, interactive portfolio website showcasing my skills, projects,
+  technical experience, and professional journey.
 </p>
 
 <p align="center">
-
-<a href="https://saif-portfolio-psi.vercel.app/">
-  <img src="https://img.shields.io/badge/🌐%20Live%20Portfolio-Visit%20Website-blue?style=for-the-badge" alt="Live Portfolio" />
-</a>
-
-<a href="https://github.com/mohamedsaif21/saif_portfolio_">
-  <img src="https://img.shields.io/badge/💻%20GitHub-Source%20Code-black?style=for-the-badge&logo=github" alt="GitHub Repository" />
-</a>
-
+  <a href="https://saif-portfolio-psi.vercel.app/">
+    <img src="https://img.shields.io/badge/🌐%20Live%20Portfolio-Visit%20Website-blue?style=for-the-badge" alt="Live Portfolio" />
+  </a>
+  <a href="https://github.com/mohamedsaif21/saif_portfolio_">
+    <img src="https://img.shields.io/badge/💻%20GitHub-Source%20Code-black?style=for-the-badge&logo=github" alt="GitHub Repository" />
+  </a>
 </p>
+
+---
+
+## 📸 Portfolio Preview
+
+<p align="center">
+  <img src="Asset/portfolio-preview.png" alt="Mohamed Saif Portfolio Preview" width="900"/>
+</p>
+
+> Replace `Asset/portfolio-preview.png` with your actual portfolio screenshot.
 
 ---
 
 ## 👋 About
 
-Welcome to my portfolio repository.
+Welcome to my personal portfolio repository.
 
-This website is designed to present my work as a **Frontend Developer**, including selected projects, technical skills, professional experience, and ways to connect with me.
+This website showcases my work and journey as a **Frontend Developer**, including selected projects, technical skills, professional experience, and ways to connect with me.
 
-The portfolio focuses on a modern visual experience with responsive layouts, smooth animations, interactive sections, and performance-conscious development.
+The portfolio is designed with a focus on:
 
-🌐 **[Visit My Live Portfolio](https://saif-portfolio-psi.vercel.app/)**
+* Modern visual design
+* Responsive layouts
+* Interactive user experiences
+* Smooth animations
+* Performance-conscious development
+* Clean and accessible interfaces
+
+🌐 **Live Portfolio:**
+https://saif-portfolio-psi.vercel.app/
 
 ---
 
@@ -38,7 +54,7 @@ The portfolio focuses on a modern visual experience with responsive layouts, smo
 
 ### 📱 Responsive Design
 
-Built with a mobile-first approach to provide a consistent experience across:
+Built with a responsive, mobile-first approach to provide a consistent experience across:
 
 * Desktop
 * Laptop
@@ -47,40 +63,52 @@ Built with a mobile-first approach to provide a consistent experience across:
 
 ### 🎨 Interactive Hero Section
 
-A visually engaging hero section featuring:
+The hero section includes:
 
 * Horizontal scrolling
 * Smooth animations
 * Interactive elements
 * Clear calls-to-action
+* Modern visual presentation
 
 ### 🌊 Parallax Effects
 
-CSS-based parallax effects are used to create depth and improve the visual experience while maintaining a lightweight implementation.
+CSS-based parallax effects are used to create depth and enhance the visual experience while keeping the implementation lightweight.
 
 ### 🚀 Project Showcase
 
-A dedicated project section highlighting selected projects, their technologies, and relevant links.
+A dedicated project section presents selected projects along with:
 
-### 🧩 Tech Stack Display
+* Project descriptions
+* Technologies used
+* Project links
+* GitHub repositories
 
-Technical skills and technologies are presented through a visual and easy-to-understand interface.
+### 🧩 Tech Stack
+
+Technologies and tools are presented through a visual interface to make the technical experience easy to explore.
 
 ### 🧭 Smooth Navigation
 
-Anchor-based navigation provides smooth movement between portfolio sections.
+Anchor-based navigation provides smooth transitions between portfolio sections.
 
 ### 📱 Mobile Navigation
 
-A responsive hamburger menu provides easy navigation on smaller screens.
+A responsive hamburger navigation menu provides a clean experience on smaller screens.
 
 ### ⚡ Performance Focused
 
-The website is designed with performance in mind, including optimized assets, lightweight frontend implementation, and efficient animations.
+The website focuses on:
+
+* Optimized assets
+* Lightweight frontend implementation
+* Efficient animations
+* Responsive layouts
+* Clean code structure
 
 ---
 
-# 🛠️ Technologies
+# 🛠️ Tech Stack
 
 | Category            | Technologies            |
 | ------------------- | ----------------------- |
@@ -89,7 +117,57 @@ The website is designed with performance in mind, including optimized assets, li
 | **Layout**          | CSS Grid, Flexbox       |
 | **Animations**      | CSS Keyframes, GSAP     |
 | **Deployment**      | Vercel                  |
-| **Version Control** | Git & GitHub            |
+| **Version Control** | Git, GitHub             |
+
+---
+
+# 📸 Website Screenshots
+
+## 🏠 Hero Section
+
+<p align="center">
+  <img src="Asset/screenshots/hero.png" alt="Portfolio Hero Section" width="900"/>
+</p>
+
+---
+
+## 👨‍💻 About Section
+
+<p align="center">
+  <img src="Asset/screenshots/about.png" alt="Portfolio About Section" width="900"/>
+</p>
+
+---
+
+## 🧩 Tech Stack
+
+<p align="center">
+  <img src="Asset/screenshots/tech-stack.png" alt="Portfolio Tech Stack Section" width="900"/>
+</p>
+
+---
+
+## 🚀 Projects
+
+<p align="center">
+  <img src="Asset/screenshots/projects.png" alt="Portfolio Projects Section" width="900"/>
+</p>
+
+---
+
+## 💼 Experience
+
+<p align="center">
+  <img src="Asset/screenshots/experience.png" alt="Portfolio Experience Section" width="900"/>
+</p>
+
+---
+
+## 📬 Contact
+
+<p align="center">
+  <img src="Asset/screenshots/contact.png" alt="Portfolio Contact Section" width="900"/>
+</p>
 
 ---
 
@@ -98,26 +176,37 @@ The website is designed with performance in mind, including optimized assets, li
 ```text
 saif_portfolio_/
 │
-├── index.html                  # Main portfolio page
-├── game.html                   # Game page
+├── index.html
+├── game.html
 │
-├── style.css                   # Main stylesheet
-├── main.js                     # Main JavaScript logic
+├── style.css
+├── main.js
 │
-├── package.json                # Project dependencies and scripts
-├── vercel.json                 # Vercel deployment configuration
+├── package.json
+├── vercel.json
 │
-├── Assest/
-│   ├── Tech/                   # Technology icons
-│   ├── saif.jpeg               # Profile image
-│   ├── Mohamed Saif B.pdf      # Resume
-│   └── ...                     # Other portfolio assets
+├── Asset/
+│   ├── Tech/
+│   │   └── ...technology icons
+│   │
+│   ├── screenshots/
+│   │   ├── portfolio-preview.png
+│   │   ├── hero.png
+│   │   ├── about.png
+│   │   ├── tech-stack.png
+│   │   ├── projects.png
+│   │   ├── experience.png
+│   │   └── contact.png
+│   │
+│   ├── saif.jpeg
+│   ├── Mohamed Saif B.pdf
+│   └── ...other assets
 │
-├── node_modules/               # Installed dependencies
-└── README.md                   # Project documentation
+├── .gitignore
+└── README.md
 ```
 
-> `node_modules/` is generated automatically by npm and should normally be excluded from version control using `.gitignore`.
+> `node_modules/` is generated automatically by npm and should not be committed to the repository.
 
 ---
 
@@ -125,7 +214,7 @@ saif_portfolio_/
 
 ## Prerequisites
 
-Make sure the following are installed:
+Make sure you have the following installed:
 
 * **Node.js** v14 or higher
 * **npm** or **Yarn**
@@ -163,11 +252,11 @@ Start the local development server:
 npm run dev
 ```
 
-The development server will provide a local URL that can be opened in your browser.
+The development server will provide a local URL that you can open in your browser.
 
 ---
 
-## 🏗️ Production Build
+# 🏗️ Production Build
 
 Create an optimized production build:
 
@@ -177,9 +266,9 @@ npm run build
 
 ---
 
-## 🔍 Preview Production Build
+# 🔍 Preview Production Build
 
-Preview the production version locally:
+Preview the production build locally:
 
 ```bash
 npm run preview
@@ -189,15 +278,15 @@ npm run preview
 
 # ☁️ Deployment
 
-The portfolio is configured for deployment using **Vercel**.
+The portfolio is deployed using **Vercel**.
 
-## Deploy with Vercel
+### Deploy with Vercel
 
 1. Connect the GitHub repository to Vercel.
 2. Vercel detects the project configuration.
-3. Configure the required build settings if necessary.
+3. Configure the build settings if required.
 4. Deploy the project.
-5. Vercel provides a live URL for the portfolio.
+5. Vercel generates the live deployment URL.
 
 ### Manual Deployment
 
@@ -207,7 +296,7 @@ Install the Vercel CLI:
 npm install -g vercel
 ```
 
-Deploy the project:
+Deploy:
 
 ```bash
 vercel
@@ -216,8 +305,6 @@ vercel
 ---
 
 # 🧭 Portfolio Sections
-
-The website is organized into the following sections:
 
 ### 01 — Hero
 
@@ -237,7 +324,7 @@ Showcases selected projects and the technologies used to build them.
 
 ### 05 — Experience
 
-Presents my professional and project experience through a timeline.
+Presents professional and project experience through a timeline.
 
 ### 06 — Contact
 
@@ -247,7 +334,7 @@ Provides ways to connect with me for professional opportunities, collaborations,
 
 # 🚀 Featured Projects
 
-### 🤟 Hand2Voices
+## 🤟 Hand2Voices
 
 An AI-powered React Native application designed around accessibility and communication.
 
@@ -255,15 +342,15 @@ An AI-powered React Native application designed around accessibility and communi
 
 ---
 
-### 🤖 RUHI AI Assistant
+## 🤖 RUHI AI Assistant
 
 A Python-based AI assistant built using **LiveKit**, focusing on real-time AI interaction and voice-based capabilities.
 
 ---
 
-### 📄 ResuCraft AI
+## 📄 ResuCraft AI
 
-An AI-powered resume-building platform focused on helping users create professional resumes and improve their career profiles through intelligent optimization.
+An AI-powered resume-building platform designed to help users create professional resumes and improve their career profiles through intelligent optimization.
 
 ---
 
@@ -279,6 +366,10 @@ An AI-powered resume-building platform focused on helping users create professio
   <img src="https://img.shields.io/badge/Instagram-@saif_photog_-purple?style=for-the-badge&logo=instagram" alt="Instagram" />
 </a>
 
+<a href="https://github.com/mohamedsaif21">
+  <img src="https://img.shields.io/badge/GitHub-mohamedsaif21-black?style=for-the-badge&logo=github" alt="GitHub" />
+</a>
+
 </p>
 
 ---
@@ -289,18 +380,20 @@ For professional opportunities, collaborations, or project discussions:
 
 **Email:** [mohamedsaifb24@gmail.com](mailto:mohamedsaifb24@gmail.com)
 
-**Portfolio:** [Visit Live Portfolio](https://your-live-portfolio-url.com)
+**Portfolio:** https://saif-portfolio-psi.vercel.app/
 
-**LinkedIn:** [linkedin.com/in/mohamed-saif24](https://www.linkedin.com/in/mohamed-saif24/)
+**LinkedIn:** https://www.linkedin.com/in/mohamed-saif24/
+
+**GitHub:** https://github.com/mohamedsaif21
 
 ---
 
 # 📄 Resume
 
-My resume is available in the portfolio assets:
+My resume is available inside the portfolio assets:
 
 ```text
-Assest/Mohamed Saif B.pdf
+Asset/Mohamed Saif B.pdf
 ```
 
 ---
@@ -315,7 +408,7 @@ This project is licensed under the **ISC License**.
 
 ## Mohamed Saif
 
-**Frontend Developer**
+**Frontend Developer • UI/UX • Web Development**
 
 Passionate about building modern web experiences, interactive interfaces, and practical applications using frontend technologies and AI-powered solutions.
 
