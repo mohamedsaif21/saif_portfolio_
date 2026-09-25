@@ -23,7 +23,7 @@
 ## 📸 Portfolio Preview
 
 <p align="center">
-  <img src="Asset/portfolio-preview.png" alt="Mohamed Saif Portfolio Preview" width="900"/>
+  <img src="portfolio-preview.png" alt="Mohamed Saif Portfolio Preview" width="900"/>
 </p>
 
 > Replace `Asset/portfolio-preview.png` with your actual portfolio screenshot.
