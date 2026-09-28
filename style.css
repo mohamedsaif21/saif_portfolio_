@@ -1515,6 +1515,7 @@ a {
 
 .poster-card {
   width: 300px;
+  height: 420px;
   max-width: 80vw;
   border-radius: 15px;
   display: flex;
@@ -1535,8 +1536,8 @@ a {
 
 .poster-card img {
   width: 100%;
-  height: auto;
-  object-fit: contain;
+  height: 100%;
+  object-fit: cover;
   object-position: center;
   display: block;
 }
