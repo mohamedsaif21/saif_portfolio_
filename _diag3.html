@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    body { margin: 0; background: #000; }
+    .hero-stage { height: 500px; --person-h: 480px; }
+  </style>
+</head>
+<body>
+  <div class="hero-stage" id="t1">
+    <div class="hero-layer hero-layer--outline"><div class="hero-word" data-text="PORTFOLIO"></div></div>
+  </div>
+  <div class="hero-stage" id="t2" style="position:relative">
+    <div class="hero-layer hero-layer--outline"><div class="hero-word" data-text="PORTFOLIO"></div></div>
+  </div>
+  <div class="hero-stage" id="t3" style="position:relative">
+    <div class="hero-layer hero-layer--outline"><div class="hero-word" data-text="PORTFOLIO"></div></div>
+    <div class="hero-cutout-wrap"><img class="hero-cutout" src="./Assest/saif-cutout.png" alt=""></div>
+  </div>
+  <script>
+    document.querySelectorAll('.hero-word[data-text]').forEach(el => {
+      el.innerHTML = [...el.dataset.text].map(c => `<span class="ch">${c}</span>`).join('');
+    });
+    document.getElementById('t2').style.setProperty('--test', '1');
+    document.querySelector('#t2 .hero-layer--outline').style.webkitMaskImage = 'radial-gradient(circle at 50% 50%, #000 0 100px, transparent 101px)';
+    document.querySelector('#t2 .hero-layer--outline').style.maskImage = 'radial-gradient(circle at 50% 50%, #000 0 100px, transparent 101px)';
+    document.querySelector('#t2 .hero-layer--outline').style.webkitMaskSize = 'auto';
+    document.querySelector('#t2 .hero-layer--outline').style.maskSize = 'auto';
+  </script>
+</body>
+</html>
