@@ -97,7 +97,7 @@ if (hamburger && mobileMenu) {
     });
 }
 
-const desktopLinks = document.querySelectorAll('.desktop-links a');
+const desktopLinks = document.querySelectorAll('.desktop-links a, .hero-corner.tr');
 desktopLinks.forEach(link => {
     link.addEventListener('click', (e) => {
         const target = link.getAttribute('href');
@@ -930,3 +930,43 @@ if (backToTopBtn) {
         }
     });
 }
+
+// ==========================================================================
+// HERO: TEXT-BEHIND-PERSON (split letters, intro, mouse parallax)
+// ==========================================================================
+(function heroIntro() {
+    if (typeof gsap === 'undefined') return;
+
+    const wordEls = document.querySelectorAll('.hero-word[data-text]');
+    if (!wordEls.length) return;
+
+    // Split each word into letter spans (keeps the HTML clean)
+    wordEls.forEach(el => {
+        el.innerHTML = [...el.dataset.text]
+            .map(c => `<span class="ch">${c}</span>`)
+            .join('');
+    });
+
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduceMotion) return;
+
+    const solidLetters = gsap.utils.toArray('.hero-layer--solid .ch');
+    const outlineLetters = gsap.utils.toArray('.hero-layer--outline .ch');
+
+    const tl = gsap.timeline({ defaults: { ease: 'power4.out' } });
+    tl.from(solidLetters, { yPercent: 40, opacity: 0, duration: 1.2, stagger: 0.07 }, 0)
+      .from(outlineLetters, { yPercent: 40, opacity: 0, duration: 1.2, stagger: 0.07 }, 0)
+      .from('.hero-cutout', { y: 80, opacity: 0, scale: 0.96, duration: 1.2 }, '-=0.9')
+      .from('.hero-corner', { opacity: 0, y: 15, duration: 0.8, stagger: 0.1 }, '-=0.6');
+
+    // Mouse parallax: text drifts opposite the cursor, person stays put.
+    // The mask lives on the outer layer, so the outline stays aligned with him.
+    if (window.matchMedia('(hover: hover)').matches) {
+        const words = gsap.utils.toArray('.hero-word');
+        const xTo = words.map(w => gsap.quickTo(w, 'x', { duration: 0.8, ease: 'power3' }));
+        window.addEventListener('mousemove', e => {
+            const dx = (e.clientX / window.innerWidth - 0.5) * -60;
+            xTo.forEach(fn => fn(dx));
+        });
+    }
+})();
