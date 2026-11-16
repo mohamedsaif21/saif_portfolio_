@@ -1674,21 +1674,20 @@ a {
   .mobile-nav-actions {
     display: flex;
     align-items: center;
-    gap: 1rem;
-    margin-left: auto;
+    justify-content: center;
+    gap: clamp(0.55rem, 3vw, 1rem);
+    width: 100%;
+    margin: 0 auto;
     z-index: 200;
   }
 
-  .mobile-nav-resume {
+  .mobile-nav-link {
     display: inline-block;
-    font-size: 0.9rem;
+    white-space: nowrap;
+    font-size: clamp(0.66rem, 2.6vw, 0.9rem);
     line-height: 1;
     text-transform: uppercase;
-    letter-spacing: 1px;
-  }
-
-  .hamburger-btn {
-    display: flex;
+    letter-spacing: 0.04em;
   }
 
   .fixed-nav {
