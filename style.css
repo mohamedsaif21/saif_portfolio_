@@ -2604,7 +2604,6 @@ html.lenis {
   letter-spacing: -0.01em;
   white-space: nowrap;
   text-transform: uppercase;
-  will-change: transform;
 }
 
 .hero-word .ch {
