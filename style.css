@@ -2627,7 +2627,7 @@ html.lenis {
   transform: translateX(-50%);
   z-index: 4;
   margin: 0;
-  color: var(--ink);
+  color: var(--accent);
   font-family: "Space Grotesk", sans-serif;
   font-size: 0.8rem;
   text-transform: uppercase;
